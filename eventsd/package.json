@@ -1,0 +1,16 @@
+{
+    "name": "raveneventsd",
+    "preferGlobal": false,
+    "version": "1.0.0",
+    "author": "Phil Dier <phil@raventools.com>",
+    "description": "Raven EventsD server daemon",
+    "dependencies" : {
+        "mongodb": "*",
+        "faye": "0.8.6",
+        "statsd-client": "*",
+	"redis": "*"
+    },
+    "engines": {
+        "node": ">=0.7"
+    }
+}
