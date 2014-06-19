@@ -1,0 +1,232 @@
+{
+  "name": "eventsd_dashboard",
+  "description": "Installs/Configures eventsd_dashboard",
+  "long_description": "eventsd_dashboard Cookbook\n==========================\nTODO: Enter the cookbook description here.\n\ne.g.\nThis cookbook makes your favorite breakfast sandwhich.\n\nRequirements\n------------\nTODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.\n\ne.g.\n#### packages\n- `toaster` - eventsd_dashboard needs toaster to brown your bagel.\n\nAttributes\n----------\nTODO: List you cookbook attributes here.\n\ne.g.\n#### eventsd_dashboard::default\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>['eventsd_dashboard']['bacon']</tt></td>\n    <td>Boolean</td>\n    <td>whether to include bacon</td>\n    <td><tt>true</tt></td>\n  </tr>\n</table>\n\nUsage\n-----\n#### eventsd_dashboard::default\nTODO: Write usage instructions for each cookbook.\n\ne.g.\nJust include `eventsd_dashboard` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[eventsd_dashboard]\"\n  ]\n}\n```\n\nContributing\n------------\nTODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.\n\ne.g.\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write you change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\nLicense and Authors\n-------------------\nAuthors: TODO: List authors\n",
+  "maintainer": "YOUR_COMPANY_NAME",
+  "maintainer_email": "YOUR_EMAIL",
+  "license": "All rights reserved",
+  "platforms": {
+  },
+  "dependencies": {
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+    "eventsd_dashboard": {
+      "display_name": "eventsd Dashboard",
+      "type": "hash",
+      "choice": [
+
+      ],
+      "calculated": false,
+      "required": "optional",
+      "recipes": [
+
+      ]
+    },
+    "eventsd_dashboard/vhost/name": {
+      "display_name": "Vhost Name",
+      "description": "Vhost Name",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_vhost"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/vhost/servername": {
+      "display_name": "Vhost ServerName",
+      "description": "Vhost ServerName",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_vhost"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/vhost/serveraliases": {
+      "display_name": "Vhost ServerAliases",
+      "description": "Vhost ServerAliases",
+      "required": "recommended",
+      "type": "array",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_vhost"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/vhost/documentroot": {
+      "display_name": "Vhost DocRoot",
+      "description": "Vhost DocRoot",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_vhost"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/rightscale/account_id": {
+      "display_name": "Rightscale API Account ID",
+      "description": "Rightscale API Account ID",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_rightscale"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/rightscale/username": {
+      "display_name": "Rightscale API Username",
+      "description": "Rightscale API Username",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_rightscale"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/rightscale/password": {
+      "display_name": "Rightscale API Password",
+      "description": "Rightscale API Password",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_rightscale"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/supervisord/username": {
+      "display_name": "Supervisord username",
+      "description": "Supervisord username",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_supervisord"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/supervisord/password": {
+      "display_name": "Supervisord password",
+      "description": "Supervisord password",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_supervisord"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/supervisord/port": {
+      "display_name": "Supervisord port",
+      "description": "Supervisord port",
+      "required": "recommended",
+      "type": "string",
+      "default": "9110",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::setup_supervisord"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/deploy/repo": {
+      "display_name": "Git Repository URL",
+      "description": "Git Repository URL",
+      "required": "recommended",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::deploy_tag"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/deploy/branch": {
+      "display_name": "Git Branch",
+      "description": "Git Branch",
+      "required": "recommended",
+      "type": "string",
+      "default": "master",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::deploy_tag"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/deploy/key": {
+      "display_name": "Git Deploy Key",
+      "description": "Git Deploy Key",
+      "required": "optional",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::deploy_tag"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    }
+  },
+  "groupings": {
+  },
+  "recipes": {
+    "eventsd_dashboard::default": "includes all needed recipes to bootstrap the dashboard",
+    "eventsd_dashboard::deploy_tag": "deploys/updates application",
+    "eventsd_dashboard::setup_vhost": "installs and configures apache and php",
+    "eventsd_dashboard::setup_php": "installs and configures apache and php",
+    "eventsd_dashboard::setup_epel": "includes redhat and rightscale's epel repositories",
+    "eventsd_dashboard::setup_rightscale": "configures rightscale authentication parameters in app",
+    "eventsd_dashboard::setup_supervisord": "configures supervisord authentication parameters in app"
+  },
+  "version": "0.1.0"
+}

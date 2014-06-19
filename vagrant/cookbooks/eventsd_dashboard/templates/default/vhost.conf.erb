@@ -1,0 +1,16 @@
+<VirtualHost *:8000>
+	ServerName <%=@servername%>
+	<% @serveraliases.each do |n| %>
+	ServerAlias <%=n%>
+	<% end %>
+	DocumentRoot <%=@documentroot%>
+</VirtualHost>
+
+<Directory <%=@documentroot%>>
+	AllowOverride all
+	Order allow,deny
+	Allow from all
+	Options -Indexes
+</Directory>
+
+# vim:set syntax=apache:

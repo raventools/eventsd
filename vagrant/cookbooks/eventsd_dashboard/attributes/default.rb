@@ -1,0 +1,26 @@
+# vhost
+default[:eventsd_dashboard][:vhost][:name] = "eventsddashboard"
+default[:eventsd_dashboard][:vhost][:servername] = "eventsddashboard.site"
+default[:eventsd_dashboard][:vhost][:serveraliases] = []
+default[:eventsd_dashboard][:vhost][:documentroot] = "/home/webapps/eventsddashboard"
+
+# deploy
+default[:eventsd_dashboard][:deploy][:repo] = "git@github.com:raventools/eventsd-dashboard.git"
+default[:eventsd_dashboard][:deploy][:branch] = "master"
+default[:eventsd_dashboard][:deploy][:key] = ""
+
+# supervisord
+default[:gearman_dashboard][:supervisord][:username] = "super"
+default[:gearman_dashboard][:supervisord][:password] = "" # blank password disables auth
+default[:gearman_dashboard][:supervisord][:port] = "9110"
+
+# php config tuning
+default[:eventsd_dashboard][:php_conf] = [
+	"log_errors = On",
+	"error_log = /var/log/httpd/php_error_log",
+	"date.timezone = US/Eastern"
+	]
+
+# attachments
+default[:eventsd_dashboard][:tmp_dir] = "/tmp/attachments"
+default[:eventsd_dashboard][:attachment_url] = "http://raven-opensource.s3.amazonaws.com"

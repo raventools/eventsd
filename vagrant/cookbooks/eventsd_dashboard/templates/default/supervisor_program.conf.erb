@@ -1,0 +1,13 @@
+[program:<%=@name%>]
+command=<%=@command%>
+directory=<%=@directory%>
+user=<%=@user%>
+<% if @numprocs > 1 %>
+numprocs=<%=@numprocs%>
+process_name=%(process_num)s
+<% end %>
+autostart=true
+autorestart=true
+stdout_logfile=/var/log/<%=@name%>.log
+redirect_stderr=true
+stopsignal=QUIT

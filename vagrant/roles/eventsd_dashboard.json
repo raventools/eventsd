@@ -1,0 +1,34 @@
+{
+	"name": "eventsd_dashboard",
+	"description": "",
+	"json_class": "Chef::Role",
+	"default_attributes": {
+		"tmp_dir":"/vagrant/cache",
+		"eventsd_dashboard":{
+			"rightscale":{
+				"account_id": "0000",
+				"username": "eventsd@dashboard.com",
+				"password": "12345"
+			},
+			"supervisord":{
+				"username":"super",
+				"password":"Insecure"
+			},
+			"vhost":{
+					"name":"eventsd_dashboard",
+					"servername":"eventsd_dashboard.site",
+					"serveraliases":["www.eventsd_dashboard.site"],
+					"documentroot":"/home/webapps/eventsd_dashboard/"
+			}
+		}
+	},
+	"override_attributes": {
+	},
+	"chef_type": "role",
+	"run_list": [
+		"eventsd_dashboard::default",
+		"eventsd_dashboard::vagrant"
+	],
+	"env_run_lists": {
+	}
+}

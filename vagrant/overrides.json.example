@@ -1,0 +1,14 @@
+{
+	"local_repo_dir":"/path/to/local/repo",
+	"eventsd_dashboard":{
+		"supervisord":{
+			"username":"super",
+			"password":"pass"
+		},
+		"rightscale":{
+			"account_id": "0000",
+			"username": "bogus@email.com",
+			"password": "bogus"
+		}
+	}
+}
