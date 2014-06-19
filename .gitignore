@@ -1,0 +1,3 @@
+vagrant/overrides.json
+vagrant/.vagrant
+vagrant/cache/*
