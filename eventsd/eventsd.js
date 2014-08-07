@@ -1,5 +1,4 @@
 var dgram = require("dgram");
-var mongo = require('mongodb'), Server = mongo.Server, Db = mongo.Db;
 var http = require('http'),
 	faye = require('faye'),
 	SDC = require('statsd-client');
@@ -7,27 +6,19 @@ var util = require('util');
 
 // fragment handler module
 var fragment = require("./fragment.js");
+var datastore = require("./datastore.js");
 
 // redis setup
 var redis_config = require("./redis_config.js");
 var Redis = require("redis");
 redis_client = Redis.createClient(redis_config.port,redis_config.host);
 
+// set up redis clients
 fragment.redis(redis_client);
+datastore.redis(redis_client);
 
 // pubsub client, for publishing events to pubsub server
 var faye_client = new faye.Client('http://localhost:6970/eventsd');
-
-// mongo connection
-var mongo_server = new Server('localhost',27017, {auto_reconnect: true});
-var db = new Db('eventsd', mongo_server, {safe:true});
-db.open(function(err, db) {
-	if(!err) {
-		console.log("connected to mongo");
-	} else {
-		console.log("error connecting to mongo: "+err);
-	}
-});
 
 process.on('error',function(err) {
 	console.log("caught error...");
@@ -50,8 +41,8 @@ if(dump_events_regex != '') {
 // udp listener
 var server = dgram.createSocket("udp4");
 
-server.on("message", function (msg, rinfo) 
-	{ 
+server.on("message", function (msg, rinfo) { 
+
 		try {
 			var str_event = msg+'';
 			var ob_event = JSON.parse(str_event);
@@ -69,20 +60,12 @@ server.on("message", function (msg, rinfo)
 					}
 				}
 				else {
-		//			console.log(JSON.stringify(ob_event,null,2));
+					console.log(JSON.stringify(ob_event,null,2));
 				}
 			}
 
-			try {
-				db.createCollection(ob_event.bucket, {safe:false,capped:true,size:10485760,max:10000}, 
-					function(err,collection) {
-						insertIntoCollection(collection,ob_event);
-						ob_event=null;
-					});
-			} catch(ex) {
-				console.log("CREATE COLLECTION exception");
-				console.log(ex);
-			}
+			datastore.insert(ob_event);
+			publishToFaye(ob_event);
 
 			ob_event = null;
 		}
@@ -106,33 +89,17 @@ server.on("message", function (msg, rinfo)
 		msg = null;
 		rinfo = null;
 
-//		console.log(util.inspect(process.memoryUsage()));
-
+		console.log(util.inspect(process.memoryUsage()));
 	}
 );
 
-server.on("listening", function () 
-	{ 
-		var address = server.address(); 
-		console.log("server listening " + address.address + ":" + address.port); 
-	}
-);
+server.on("listening", function () { 
+	var address = server.address(); 
+	console.log("server listening " + address.address + ":" + address.port); 
+});
 
-function insertIntoCollection(collection,ob_event) {
-
-	var now = new Date();
+function publishToFaye(ob_event) {
 	var pubsub_bucket = '/eventsd/'+ob_event.bucket.replace(/\./g,'/');
-	ob_event.ts = now;
-
-	if(collection) {
-		collection.insert(ob_event, {safe:false}, function() {
-				publishToFaye(pubsub_bucket,ob_event);
-				ob_event = null;
-			});
-	}
-}
-
-function publishToFaye(pubsub_bucket,ob_event) {
 	faye_client.publish(pubsub_bucket,ob_event);
 	ob_event=null;
 }

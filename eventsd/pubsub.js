@@ -2,8 +2,9 @@ var http = require('http'),
 	faye = require('faye'),
 	SDC = require('statsd-client');
 
-// statsd object
-sdc = new SDC({host:'statsd.r4v3n5e0.com'});
+// statsd object 
+// TODO make configurable
+sdc = new SDC({host:'localhost'});
 
 var faye_server = new faye.NodeAdapter({mount: '/eventsd', timeout:60});
 

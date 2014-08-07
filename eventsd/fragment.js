@@ -1,5 +1,3 @@
-var fs = require("fs");
-
 /**
  * fragment.js
  *
