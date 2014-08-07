@@ -11,6 +11,7 @@ class Bucket_model extends CI_Model {
 	public function buckets($filter = "*") {
 		$filter = self::keyName($filter);
 		$keys = $this->redis->keys($filter);
+		sort($keys);
 		return array_map(function($a) {
 					return str_replace("EventsD:","",$a);
 				},$keys);
