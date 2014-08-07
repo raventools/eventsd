@@ -60,7 +60,7 @@ server.on("message", function (msg, rinfo) {
 					}
 				}
 				else {
-					console.log(JSON.stringify(ob_event,null,2));
+//					console.log(JSON.stringify(ob_event,null,2));
 				}
 			}
 
@@ -89,7 +89,7 @@ server.on("message", function (msg, rinfo) {
 		msg = null;
 		rinfo = null;
 
-		console.log(util.inspect(process.memoryUsage()));
+//		console.log(util.inspect(process.memoryUsage()));
 	}
 );
 
