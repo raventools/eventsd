@@ -8,6 +8,8 @@
   "platforms": {
   },
   "dependencies": {
+    "yum": ">= 0.0.0",
+    "yum-epel": ">= 0.0.0"
   },
   "recommendations": {
   },
