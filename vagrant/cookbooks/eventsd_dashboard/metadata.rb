@@ -6,6 +6,9 @@ description      'Installs/Configures eventsd_dashboard'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.1.0'
 
+depends "yum"
+depends "yum-epel"
+
 recipe "eventsd_dashboard::default", "includes all needed recipes to bootstrap the dashboard"
 recipe "eventsd_dashboard::deploy_tag", "deploys/updates application"
 recipe "eventsd_dashboard::setup_vhost", "installs and configures apache and php"

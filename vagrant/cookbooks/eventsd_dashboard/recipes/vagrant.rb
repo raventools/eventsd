@@ -10,5 +10,3 @@ bash "fix-dns" do
         echo "options single-request-reopen" >> /etc/resolv.conf
     EOH
 end
-
-include_recipe "eventsd_dashboard::install_supervisord"

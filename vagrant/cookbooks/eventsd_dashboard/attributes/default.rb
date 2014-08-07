@@ -10,9 +10,9 @@ default[:eventsd_dashboard][:deploy][:branch] = "master"
 default[:eventsd_dashboard][:deploy][:key] = ""
 
 # supervisord
-default[:gearman_dashboard][:supervisord][:username] = "super"
-default[:gearman_dashboard][:supervisord][:password] = "" # blank password disables auth
-default[:gearman_dashboard][:supervisord][:port] = "9110"
+default[:eventsd_dashboard][:supervisord][:username] = "super"
+default[:eventsd_dashboard][:supervisord][:password] = "" # blank password disables auth
+default[:eventsd_dashboard][:supervisord][:port] = "9110"
 
 # php config tuning
 default[:eventsd_dashboard][:php_conf] = [
