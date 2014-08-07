@@ -1,3 +1,6 @@
 vagrant/overrides.json
 vagrant/.vagrant
 vagrant/cache/*
+*.swp
+.*.swp
+node_modules
