@@ -1,4 +1,10 @@
 
+# create attachments dir
+directory node[:eventsd_dashboard][:tmp_dir] do
+	action :create
+	recursive true
+end
+
 include_recipe "yum-epel"
 
 package "nodejs"
@@ -21,12 +27,6 @@ include_recipe "eventsd_dashboard::setup_eventsd"
 
 # create repo dir for both vagrant and production
 directory node[:eventsd_dashboard][:vhost][:documentroot] do
-	action :create
-	recursive true
-end
-
-# create attachments dir
-directory node[:eventsd_dashboard][:tmp_dir] do
 	action :create
 	recursive true
 end

@@ -23,7 +23,6 @@ rpm_package "php53u-pecl-redis" do
     source local_path
 end
 
-
 # generates php conf overrides
 template "/etc/php.d/custom.ini" do
 	source "php.ini.erb"
