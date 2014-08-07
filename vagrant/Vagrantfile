@@ -21,5 +21,6 @@ Vagrant::Config.run do |config|
 		chef.add_role "eventsd_dashboard"
 		chef.json = overrides
 	end
-  
+
+	config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on", "--memory", "2048", "--cpus", "2", "--natdnshostresolver1", "on"]
 end
