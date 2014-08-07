@@ -14,7 +14,6 @@ recipe "eventsd_dashboard::deploy_tag", "deploys/updates application"
 recipe "eventsd_dashboard::setup_vhost", "installs and configures apache and php"
 recipe "eventsd_dashboard::setup_php", "installs and configures apache and php"
 recipe "eventsd_dashboard::setup_epel", "includes redhat and rightscale's epel repositories"
-recipe "eventsd_dashboard::setup_rightscale", "configures rightscale authentication parameters in app"
 recipe "eventsd_dashboard::setup_supervisord", "configures supervisord authentication parameters in app"
 
 attribute "eventsd_dashboard",
@@ -48,27 +47,6 @@ attribute "eventsd_dashboard/vhost/documentroot",
     :required => "recommended",
     :type => "string",
     :recipes => ["eventsd_dashboard::default","eventsd_dashboard::setup_vhost"]
-
-attribute "eventsd_dashboard/rightscale/account_id",
-    :display_name => "Rightscale API Account ID",
-    :description => "Rightscale API Account ID",
-    :required => "recommended",
-    :type => "string",
-    :recipes => ["eventsd_dashboard::default","eventsd_dashboard::setup_rightscale"]
-
-attribute "eventsd_dashboard/rightscale/username",
-    :display_name => "Rightscale API Username",
-    :description => "Rightscale API Username",
-    :required => "recommended",
-    :type => "string",
-    :recipes => ["eventsd_dashboard::default","eventsd_dashboard::setup_rightscale"]
-
-attribute "eventsd_dashboard/rightscale/password",
-    :display_name => "Rightscale API Password",
-    :description => "Rightscale API Password",
-    :required => "recommended",
-    :type => "string",
-    :recipes => ["eventsd_dashboard::default","eventsd_dashboard::setup_rightscale"]
 
 attribute "eventsd_dashboard/supervisord/username",
     :display_name => "Supervisord username",

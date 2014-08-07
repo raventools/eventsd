@@ -26,5 +26,4 @@ git node[:eventsd_dashboard][:vhost][:documentroot] do
 	ssh_wrapper wrapper_path
 end
 
-include_recipe "eventsd_dashboard::setup_rightscale"
 include_recipe "eventsd_dashboard::setup_supervisord"
