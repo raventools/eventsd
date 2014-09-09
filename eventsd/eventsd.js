@@ -16,6 +16,7 @@ redis_client = Redis.createClient(redis_config.port,redis_config.host);
 // set up redis clients
 fragment.redis(redis_client);
 datastore.redis(redis_client);
+datastore.setMaxEvents(1000);
 
 // pubsub client, for publishing events to pubsub server
 var faye_client = new faye.Client('http://localhost:6970/eventsd');
