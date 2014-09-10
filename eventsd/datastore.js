@@ -7,6 +7,7 @@
 redis_handle = null;
 
 max_bucket_events = 10;
+bucket_scores_set = "EventsD:bucket_scores:sorted_set";
 
 /**
  * sets redis handle
@@ -41,5 +42,8 @@ exports.insert = function(ob_event) {
 		.exec(function(err,replies) {
 			if(err) throw err;
 		});
+
+	// bucket total events counters
+	redis_handle.zincrby(bucket_scores_set,1,bucket);
 
 }
