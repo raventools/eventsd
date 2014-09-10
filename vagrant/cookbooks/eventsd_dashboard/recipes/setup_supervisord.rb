@@ -1,4 +1,5 @@
 
+include_recipe "eventsd_dashboard::default"
 
 {
 	"python-meld3" => "python-meld3-0.6.10-1.noarch.rpm",

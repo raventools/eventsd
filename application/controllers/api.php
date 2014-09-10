@@ -18,6 +18,16 @@ class API extends MY_Controller {
 		}
 	}
 
+	public function counters() {
+
+		try {
+			$counters = $this->bucket_model->counters();
+			$this->OKResponse("counters",$counters);
+		} catch(Exception $e) {
+			$this->ErrorResponse("counters",array("exception"=>$e->getMessage()));
+		}
+	}
+
 	public function events($bucket,$limit=10) {
 
 		try {

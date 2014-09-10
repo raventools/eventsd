@@ -17,6 +17,10 @@ class Bucket_model extends CI_Model {
 				},$keys);
 	}
 
+	public function counters() {
+		return $this->redis->zrevrangebyscore("EventsD:bucket_scores:sorted_set","+inf","-inf",array("withscores"=>true));
+	}
+
 	public function events($bucket,$limit) {
 		$events = $this->redis->zrevrange(self::keyName($bucket),0,($limit - 1));
 		return array_map(function($s) {
