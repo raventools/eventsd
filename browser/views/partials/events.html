@@ -1,13 +1,12 @@
-<div class="col-lg-4">
-	<h2>Bucket Summary</h2>
-
-	<div ng-controller="eventCtrl">
-		<div style="width: 500px; height: 250px; margin-bottom: 5px;" id="month-chart"></div>
-		<div style="width: 500px; height: 250px;" id="hour-chart"></div>
-	</div>
-</div>
-
 <div ng-controller="eventsCtrl">
+	<div class="col-lg-4">
+		<h2>Bucket Summary</h2>
+		<small>{{bucket}}</small>
+		<div>
+			<div style="width: 500px; height: 250px; margin-bottom: 5px;" id="month-chart"></div>
+			<div style="width: 500px; height: 250px;" id="hour-chart"></div>
+		</div>
+	</div>
 	<div class="col-lg-8">
 		<div style="width: 40%; display: inline-block; margin-bottom: 20px; vertical-align: top;">
 			<h2>EventsD UI v2.0</h2>
@@ -15,9 +14,8 @@
 			<small><a href="#/">Home</a> > Event Browser</small>
 		</div>
 		<div style="text-align: right; width: 55%; display: inline-block; vertical-align: top;">
-			<label for="search"><h4>Quick Search</h4></label>
-			<input id="search" style="width: 85%; margin-left: 15%;" type="text" ng-model="searchFilter"
-				   class="form-control">
+			<label><h4>Quick Search</h4></label>
+			<input style="width: 85%; margin-left: 15%;" type="text" ng-model="searchFilter" class="form-control">
 		</div>
 	</div>
 	<div class="col-lg-8">
