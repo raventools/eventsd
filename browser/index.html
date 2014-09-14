@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="eventsd_browser">
+<head>
+	<title>Raven EventsD Browser</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/browser/assets/css/slate.css">
+	<link rel="stylesheet" href="/browser/assets/css/json.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular.min.js"></script>
+	<script src="//cdn.jsdelivr.net/angular.bootstrap/0.11.0/ui-bootstrap-tpls.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.24/angular-sanitize.min.js"></script>
+	<script src="/browser/assets/js/ng-clip.min.js"></script>
+	<script src="/browser/assets/js/underscore.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/zeroclipboard/2.1.6/ZeroClipboard.min.js"></script>
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript">
+		google.load("visualization", "1", {packages: ["corechart"]});
+	</script>
+</head>
+
+<body>
+<br>
+
+<div class="row">
+	<div class="container-fluid">
+		<div ng-view></div>
+	</div>
+</div>
+</body>
+<script src="/browser/assets/js/angular/app.js"></script>
+<script src="/browser/assets/js/angular/controllers.js"></script>
+<script src="/browser/assets/js/angular/services.js"></script>
+
+</html>
