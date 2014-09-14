@@ -1,4 +1,5 @@
 var appControllers = angular.module('appControllers', []);
+
 appControllers.controller('bucketsCtrl', ['$scope', '$http', 'eventService',
 	function ($scope, $http, eventService) {
 		$http.get("/index.php/v2/api/buckets")
@@ -9,7 +10,24 @@ appControllers.controller('bucketsCtrl', ['$scope', '$http', 'eventService',
 			.error(function () {
 				$scope.names = "error in fetching data";
 			});
+
+		var bucketTemp;
+
+		$scope.checkIn = function (bucket) {
+			bucketTemp = bucket;
+			setTimeout(function () {
+				if (bucketTemp == bucket) {
+					$scope.loadBucket(bucket);
+				}
+			}, 500);
+		};
+
+		$scope.checkOut = function () {
+			bucketTemp = undefined;
+		};
+
 		$scope.loadBucket = function (bucket) {
+			$scope.bucket = bucket;
 			eventService.getEndpoint(bucket).then(function (data) {
 				eventService.setProperty(data);
 				eventService.loadCharts();
@@ -27,7 +45,7 @@ appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', 'eve
 			$scope.month_data = data.data.month_data;
 			$scope.hour_data = data.data.hour_data;
 			$scope.predicate = 'time';
-
+			$scope.bucket = $routeParams.bucketId;
 			$scope.totalItems = $scope.table_data.length;
 			$scope.itemsPerPage = 10;
 			$scope.setPage(1);
@@ -74,11 +92,5 @@ appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', 'eve
 		$scope.clipClick = function () {
 			$scope.clip_text = 'Copied to Clipboard';
 		};
-	}
-]);
-
-appControllers.controller('eventCtrl', ['$scope', '$http', '$routeParams', 'eventService',
-	function ($scope, $http, $routeParams, eventService) {
-		$scope.data = eventService.getProperty();
 	}
 ]);
