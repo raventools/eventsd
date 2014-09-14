@@ -32,8 +32,10 @@ class Api extends CI_Controller {
 		$this->echoJson();
 	}
 	protected function echoJson() {
-		header('Cache-Control: no-cache, must-revalidate');
-		header('Expires: Mon, 26 Jul 1997 05:00:00 GMT');
+		header("Cache-Control: must-revalidate");
+		header(sprintf("Expires: %s GMT",
+			gmdate("D, d M Y H:i:s", strtotime('+1 minute'))
+		));
 		header('Content-type: application/json');
 
 		$encoded = json_encode($this->package) . "\n";
