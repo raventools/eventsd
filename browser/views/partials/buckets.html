@@ -1,0 +1,47 @@
+<div class="col-lg-4">
+	<h2>Bucket Summary</h2>
+
+	<div ng-controller="eventCtrl">
+		<div style="width: 500px; height: 250px; margin-bottom: 5px;" id="month-chart"></div>
+		<div style="width: 500px; height: 250px;" id="hour-chart"></div>
+	</div>
+</div>
+<div ng-controller="bucketsCtrl">
+	<div class="col-lg-8">
+		<div style="width: 40%; display: inline-block; margin-bottom: 20px; vertical-align: top;">
+			<h2>EventsD UI v2.0</h2>
+			<h6>Powered by AngularJS - Author: Kevin Crawley &lt;kevin@raventools.com&gt;</h6>
+			<small>Home</small>
+		</div>
+		<div style="text-align: right; width: 55%; display: inline-block; vertical-align: top;">
+			<label for="search"><h4>Quick Search</h4></label>
+			<input id="search" style="width: 85%; margin-left: 15%;" type="text" ng-model="searchFilter"
+				   class="form-control">
+		</div>
+	</div>
+</div>
+<div class="col-lg-8">
+	<tabset>
+		<tab heading="All">
+			<table class="table table-hover">
+				<thead>
+				<tr>
+					<th><a href="" ng-click="predicate='name';reverse=!reverse">Bucket</a></th>
+					<th><a href="" ng-click="predicate='hits';reverse=!reverse">Hits</a></th>
+					<th><a href="" ng-click="predicate='time';reverse=!reverse">Last Updated</a></th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="bucket in data | filter:searchFilter | orderBy:predicate:reverse">
+					<td ng-mouseover="loadBucket(bucket.name);"><a href="#events/{{bucket.name}}">{{bucket.name}}</a>
+					</td>
+					<td>{{bucket.hits}}</td>
+					<td>{{bucket.time}}</td>
+				</tr>
+				</tbody>
+			</table>
+		</tab>
+		<tab heading="Favorites">Coming soon...</tab>
+		<tab heading="Settings">You should contribute. Bitch.</tab>
+	</tabset>
+</div>

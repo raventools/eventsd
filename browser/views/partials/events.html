@@ -1,0 +1,54 @@
+<div class="col-lg-4">
+	<h2>Bucket Summary</h2>
+
+	<div ng-controller="eventCtrl">
+		<div style="width: 500px; height: 250px; margin-bottom: 5px;" id="month-chart"></div>
+		<div style="width: 500px; height: 250px;" id="hour-chart"></div>
+	</div>
+</div>
+
+<div ng-controller="eventsCtrl">
+	<div class="col-lg-8">
+		<div style="width: 40%; display: inline-block; margin-bottom: 20px; vertical-align: top;">
+			<h2>EventsD UI v2.0</h2>
+			<h6>Powered by AngularJS - Author: Kevin Crawley &lt;kevin@raventools.com&gt;</h6>
+			<small><a href="#/">Home</a> > Event Browser</small>
+		</div>
+		<div style="text-align: right; width: 55%; display: inline-block; vertical-align: top;">
+			<label for="search"><h4>Quick Search</h4></label>
+			<input id="search" style="width: 85%; margin-left: 15%;" type="text" ng-model="searchFilter"
+				   class="form-control">
+		</div>
+	</div>
+	<div class="col-lg-8">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th><a href="" ng-click="">Event</a></th>
+				<th><a href="" ng-click="">Size</a></th>
+				<th><a href="" ng-click="">Date</a></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="row in table_data_paginated | orderBy:predicate:reverse">
+				<td ng-mouseover="showSnippit(row.data);"><a ng-click="">{{row.name}}</a></td>
+				<td>{{row.size}}</td>
+				<td>{{row.time}}</td>
+			</tr>
+			</tbody>
+		</table>
+		<div style="float: right;">
+			<pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+						ng-change="pageChanged()" class="pagination-sm" previous-text="&lsaquo;"
+						next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+		</div>
+		<div style="width: 100%; display: inline-block;">
+			<pre style="max-height: 300px; overflow: auto;" ng-bind-html="snippit"></pre>
+			<button clip-copy="getTextToCopy()" clip-click="clipClick()" style="float: right; margin-right: 4px;"
+					type="button" class="btn btn-primary">{{ clip_text }}
+			</button>
+
+		</div>
+	</div>
+
+</div>
