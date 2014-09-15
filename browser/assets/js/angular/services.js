@@ -103,13 +103,13 @@ appServices.service('eventService', ['$http', function ($http) {
 				return deferred.promise;
 			}
 
-			drawHourlyChart().then(function(chart) {
+			drawHourlyChart().then(function() {
 				// whee! success
 			}, function(error) {
 				// something with the error
 			});
 
-			drawMonthlyChart().then(function(chart) {
+			drawMonthlyChart().then(function() {
 				// whee! success
 			}, function(error) {
 				// something with the error
