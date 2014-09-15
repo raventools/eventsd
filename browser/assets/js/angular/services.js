@@ -4,12 +4,16 @@ appServices.service('eventService', ['$http', function ($http) {
 	var container = null;
 
 	return {
-		getEndpoint: function (bucket) {
-			var promise = $http.get("/index.php/v2/api/events/" + bucket).then(function (response) {
-
+		getBucketsEndpoint: function () {
+			var promise = $http.get("/index.php/v2/api/buckets").then(function (response) {
 				return response.data;
 			});
-
+			return promise;
+		},
+		getEventsEndpoint: function (bucket) {
+			var promise = $http.get("/index.php/v2/api/events/" + bucket).then(function (response) {
+				return response.data;
+			});
 			return promise;
 		},
 		getProperty: function () {

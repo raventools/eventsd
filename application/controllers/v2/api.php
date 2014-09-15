@@ -22,6 +22,10 @@ class Api extends CI_Controller {
 		$this->output('events', $data);
 	}
 
+	public function delete($bucket) {
+		$results = $this->browserApi->delete($bucket);
+	}
+
 	protected function output($info = '', $data = array(), $status = "ok") {
 		$this->package = array(
 			'status' => $status,
