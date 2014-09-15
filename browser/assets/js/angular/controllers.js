@@ -243,9 +243,11 @@ appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', '$ti
 		};
 
 		$scope.loadSnip = function(code, time) {
-			$scope.snippit = eventService.formatCode(code, time);
-			$scope.snippy = false;
-			$scope.clip_text = 'Copy to Clipboard';
+			eventService.formatCode(code, time).then(function(results) {
+				$scope.snippit = results;
+				$scope.snippy = false;
+				$scope.clip_text = 'Copy to Clipboard';
+			});
 
 		};
 
