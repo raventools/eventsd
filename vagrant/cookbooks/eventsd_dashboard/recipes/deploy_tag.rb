@@ -27,3 +27,4 @@ git node[:eventsd_dashboard][:vhost][:documentroot] do
 end
 
 include_recipe "eventsd_dashboard::setup_supervisord"
+include_recipe "eventsd_dashboard::setup_htauth"

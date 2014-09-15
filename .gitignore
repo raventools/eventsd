@@ -5,3 +5,5 @@ vagrant/cache/*
 *.swp
 .*.swp
 node_modules
+.htaccess
+.htpasswd
