@@ -24,3 +24,7 @@ default[:eventsd_dashboard][:php_conf] = [
 # attachments
 default[:eventsd_dashboard][:tmp_dir] = "/tmp/attachments"
 default[:eventsd_dashboard][:attachment_url] = "http://raven-opensource.s3.amazonaws.com"
+
+# http auth
+default[:eventsd_dashboard][:admin][:username] = ""
+default[:eventsd_dashboard][:admin][:password] = ""

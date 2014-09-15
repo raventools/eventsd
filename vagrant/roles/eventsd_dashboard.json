@@ -19,7 +19,12 @@
 					"servername":"eventsd_dashboard.site",
 					"serveraliases":["www.eventsd_dashboard.site"],
 					"documentroot":"/home/webapps/eventsd_dashboard/"
+			},
+			"admin":{
+				"username":"admin",
+				"password":"password"
 			}
+
 		}
 	},
 	"override_attributes": {

@@ -91,3 +91,17 @@ attribute "eventsd_dashboard/deploy/key",
     :required => "optional",
     :type => "string",
     :recipes => ["eventsd_dashboard::default","eventsd_dashboard::deploy_tag"]
+
+attribute "eventsd_dashboard/admin/username",
+    :display_name => "Admin Username",
+    :description => "Admin Username",
+    :required => "optional",
+    :type => "string",
+    :recipes => ["eventsd_dashboard::default","eventsd_dashboard::deploy_tag","eventsd_dashboard::setup_htauth"]
+
+attribute "eventsd_dashboard/admin/password",
+    :display_name => "Admin Password",
+    :description => "Admin Password",
+    :required => "optional",
+    :type => "string",
+    :recipes => ["eventsd_dashboard::default","eventsd_dashboard::deploy_tag","eventsd_dashboard::setup_htauth"]
