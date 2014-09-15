@@ -1,0 +1,28 @@
+<div ng-controller="bucketsCtrl">
+	<summary></summary>
+	<header></header>
+	<div class="col-lg-8 content-margin">
+		<tabset>
+			<tab heading="All">
+				<buckets table="all" filter="searchFilter"></buckets>
+			</tab>
+			<tab heading="Favorites">
+				<buckets table="favorites" filter="searchFilter"></buckets>
+			</tab>
+			<tab heading="Settings">Coming Soon (maybe): Manage subscription preferences, limits, refresh rates, etc.</tab>
+		</tabset>
+	</div>
+</div>
+
+<script type="text/ng-template" id="bucketModal.html">
+	<div class="modal-header">
+		<h3 class="modal-title">{{modal.title}}</h3>
+	</div>
+	<div class="modal-body">
+		{{modal.body}}
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="ok()">OK</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+</script>

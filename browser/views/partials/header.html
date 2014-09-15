@@ -1,0 +1,17 @@
+<div class="col-lg-8 content-margin">
+	<div class="info-header-left">
+		<h2>EventsD UI v2.0</h2>
+		<h6>Powered by AngularJS - Author: Kevin Crawley &lt;kevin@raventools.com&gt;</h6>
+		<small ng-bind-html="breadCrumb"></small>
+	</div>
+	<div class="info-header-right" style="">
+		<label><h4>Quick Search</h4></label>
+		<input class="width-85 form-control" style="" type="text" ng-model="searchFilter">
+		<div class="bump-5">
+			<alert class="width-85"
+				   ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">
+				{{alert.msg}}
+			</alert>
+		</div>
+	</div>
+</div>

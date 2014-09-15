@@ -1,0 +1,49 @@
+ul.nav-tabs li {
+	cursor: pointer;
+}
+
+div.content-margin {
+	margin-left: 520px;
+}
+
+div.buckets-left-fixed {
+	display: block;
+	position: fixed;
+	width: 520px;
+}
+
+div.buckets-left-fixed div#month-chart {
+	width: 500px;
+	height: 250px;
+	margin-bottom: 5px;
+}
+
+div.buckets-left-fixed div#hour-chart {
+	width: 500px;
+	height: 250px;
+}
+
+div.info-header-left {
+	width: 40%;
+	display: inline-block;
+	margin-bottom: 20px;
+	vertical-align: top;
+}
+
+div.info-header-right {
+	text-align: right;
+	width: 55%;
+	display: inline-block;
+	vertical-align: top;
+}
+
+div.info-header-right .width-85 {
+	width: 85%;
+	margin-left: 15%;
+}
+
+div.info-header-right .bump-5 {
+	text-align: left;
+	margin-top: 5px;
+	display: block;
+}

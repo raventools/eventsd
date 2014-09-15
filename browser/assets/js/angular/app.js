@@ -4,6 +4,7 @@ var app = angular.module('eventsd_browser', [
 	'ngClipboard',
 	'appControllers',
 	'appServices',
+	'LocalStorageModule',
 	'ui.bootstrap'
 ]);
 
@@ -11,11 +12,11 @@ app.config(['$routeProvider',
 	function ($routeProvider) {
 		$routeProvider.
 			when('/', {
-				templateUrl: '/browser/views/partials/buckets.html',
+				templateUrl: '/browser/views/buckets.html',
 				controller: 'bucketsCtrl'
 			}).
 			when('/events/:bucketId', {
-				templateUrl: '/browser/views/partials/events.html',
+				templateUrl: '/browser/views/events.html',
 				controller: 'eventsCtrl'
 			});
 	}

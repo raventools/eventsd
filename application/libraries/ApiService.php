@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * Class ApiService
+ *
+ * Yes, I realize this is devoid of try/catches and other error handling. That's cuz this is getting rewritten
+ * in Node. CI is too big just for a fairly lightweight API (imo).
+ */
 class ApiService extends Redis {
 	protected $ignore = array('EventsD:bucket_scores:sorted_set');
 
 	public function __construct() {
 		$this->connect("127.0.0.1");
+	}
+
+	public function delete($bucket) {
+		return $this->del(self::keyName($bucket));
 	}
 
 	public function buckets() {
@@ -29,7 +39,7 @@ class ApiService extends Redis {
 			$key_data[] = array(
 				'name' => self::bucketName($key),
 				'hits' => (array_key_exists(self::bucketName($key), $hits)) ? $hits[self::bucketName($key)] : 0,
-				'time' => $datetime
+				'time' => strtotime($datetime) * 1000
 			);
 		}
 		return $key_data;
@@ -57,14 +67,14 @@ class ApiService extends Redis {
 			$table_data[] = array(
 				'name' => $bucket,
 				'size' => $this->getSize($ev),
-				'time' => $event['datetime'],
+				'time' => strtotime($event['datetime']) * 1000,
 				'data' => $event['data']
 			);
 		}
 
 		return array(
-			'month_data' => $month_data,
-			'hour_data' => $hour_data,
+			'month_data' => array_reverse($month_data),
+			'hour_data' => array_reverse($hour_data),
 			'table_data' => $table_data
 		);
 	}

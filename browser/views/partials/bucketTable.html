@@ -1,0 +1,36 @@
+<table class="table table-hover">
+	<thead>
+	<tr>
+		<th></th>
+		<th><a href="" ng-click="predicate='name';reverse=!reverse">Bucket</a></th>
+		<th><a href="" ng-click="predicate='hits';reverse=!reverse">Hits</a></th>
+		<th><a href="" ng-click="predicate='time';reverse=!reverse">Last Updated</a></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr ng-repeat="bucket in table.data | filter:searchFilter | orderBy:predicate:reverse">
+		<td style="width: 60px;">
+			<div class="btn-group" dropdown is-open="bucket.tools">
+				<button type="button" class="btn btn-default btn-sm dropdown-toggle" ng-disabled="disabled">
+					<span class="glyphicon glyphicon-wrench"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href=""><span class="glyphicon glyphicon-envelope"> Subscribe</span></a></li>
+					<li>
+						<a ng-click="table.favoriteHandler(bucket.name)" href="">
+							<span class="glyphicon glyphicon-pushpin"> {{bucket.favoriteText}}</span>
+						</a>
+					</li>
+					<li class="divider"></li>
+					<li><a ng-click="table.deleteHandler(bucket.name)" href=""><span class="glyphicon glyphicon-trash"> Delete</span></a></li>
+				</ul>
+			</div>
+		</td>
+		<td ng-mouseenter="table.checkIn(bucket.name)" ng-mouseleave="table.checkOut()"><a
+				href="#events/{{bucket.name}}">{{bucket.name}}</a>
+		</td>
+		<td>{{bucket.hits}}</td>
+		<td>{{bucket.time | date:'medium'}}</td>
+	</tr>
+	</tbody>
+</table>

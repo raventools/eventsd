@@ -1,0 +1,36 @@
+<div ng-controller="eventsCtrl">
+	<summary></summary>
+	<header></header>
+	<div class="col-lg-8 content-margin">
+		<table class="table table-hover">
+			<thead>
+			<tr>
+				<th><a href="">Event</a></th>
+				<th><a href="">Size</a></th>
+				<th><a href="" ng-click="reverse=!reverse">Date</a></th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr ng-repeat="row in table_data_paginated | orderBy:predicate:reverse">
+				<td ng-mouseover="showSnippit(row.data);"><a ng-click="">{{row.name}}</a></td>
+				<td>{{row.size}}</td>
+				<td>{{row.time | date:'medium'}}</td>
+			</tr>
+			</tbody>
+		</table>
+		<div style="float: right;">
+			<pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+						ng-change="pageChanged()" class="pagination-sm" max-size="9"
+						previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;"
+						last-text="&raquo;"></pagination>
+		</div>
+		<div style="width: 100%; display: inline-block;">
+			<pre ng-hide="snippy" style="max-height: 300px; overflow: auto;" ng-bind-html="snippit"></pre>
+			<button ng-hide="snippy" clip-copy="getTextToCopy()" clip-click="clipClick()" style="float: right; margin-right: 4px;"
+					type="button" class="btn btn-primary">{{ clip_text }}
+			</button>
+
+		</div>
+	</div>
+
+</div>
