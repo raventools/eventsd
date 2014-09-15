@@ -48,6 +48,9 @@ appControllers.controller('bucketsCtrl', ['$scope', '$http', '$modal', '$log', '
 			bucketsApi = {
 			favoriteHandler: function(bucket) {
 				var favoriteBuckets = localStorageService.get('favoriteBuckets');
+				if (!_.isArray(favoriteBuckets)) {
+					favoriteBuckets = [];
+				}
 
 				if (!_.isUndefined(bucket)) {
 					var index = _.indexOf(favoriteBuckets, bucket);
