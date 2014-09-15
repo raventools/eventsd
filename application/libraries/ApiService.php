@@ -49,7 +49,14 @@ class ApiService extends Redis {
 		$events = $this->zrevrange(self::keyName($bucket),0,($limit - 1));
 
 		$table_data = array();
+		$hour_data = array();
 
+		foreach(range(0,23) as $hour) {
+			$hour_data[$hour] = array(
+				'count' => 0,
+				'display' => ($hour < 9) ? '0'.$hour : (string) $hour
+			);
+		}
 		foreach($events as $ev) {
 			$event = json_decode($ev, true);
 			$date = date('Y-m-d', strtotime($event['datetime']));
@@ -59,10 +66,7 @@ class ApiService extends Redis {
 			$month_data[$date]++;
 
 			$hour = date('H', strtotime($event['datetime']));
-			if (!isset($hour_data[$hour])) {
-				$hour_data[$hour] = 0;
-			}
-			$hour_data[$hour]++;
+			$hour_data[$hour]['count']++;
 
 			$table_data[] = array(
 				'name' => $bucket,
@@ -74,7 +78,7 @@ class ApiService extends Redis {
 
 		return array(
 			'month_data' => array_reverse($month_data),
-			'hour_data' => array_reverse($hour_data),
+			'hour_data' => $hour_data,
 			'table_data' => $table_data
 		);
 	}

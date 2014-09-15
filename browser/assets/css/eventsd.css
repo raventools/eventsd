@@ -3,22 +3,23 @@ ul.nav-tabs li {
 }
 
 div.content-margin {
-	margin-left: 520px;
+	margin-right: 520px;
 }
 
-div.buckets-left-fixed {
+div.buckets-fixed {
+	right: 0px;
 	display: block;
 	position: fixed;
-	width: 520px;
+	width: 525px;
 }
 
-div.buckets-left-fixed div#month-chart {
+div.buckets-fixed div#month-chart {
 	width: 500px;
 	height: 250px;
 	margin-bottom: 5px;
 }
 
-div.buckets-left-fixed div#hour-chart {
+div.buckets-fixed div#hour-chart {
 	width: 500px;
 	height: 250px;
 }
