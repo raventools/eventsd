@@ -11,9 +11,10 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr ng-repeat="row in table_data_paginated | orderBy:predicate:reverse">
-				<td ng-click="loadSnip(row.data, row.time);">
-					<a href="">{{row.name}}</a>
+			<tr ng-repeat="row in table_data_paginated | orderBy:predicate:reverse"
+				ng-mouseenter="checkIn(row.data, row.time)" ng-mouseleave="checkOut()">
+				<td>
+					<a ng-click="loadSnip(row.data, row.time)" href="">{{row.name}}</a>
 				</td>
 				<td>{{row.size}}</td>
 				<td>{{row.time | date:'medium'}}</td>
