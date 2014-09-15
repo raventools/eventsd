@@ -22,12 +22,36 @@ appServices.service('eventService', ['$http', function ($http) {
 		setProperty: function (value) {
 			container = value;
 		},
+		formatCode: function (code, time) {
+			var raw = JSON.stringify(code, undefined, 2),
+				json = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+			return {
+				'time': time,
+				'raw': raw,
+				'html': json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+					var cls = 'number';
+					if (/^"/.test(match)) {
+						if (/:$/.test(match)) {
+							cls = 'key';
+						} else {
+							cls = 'string';
+						}
+					} else if (/true|false/.test(match)) {
+						cls = 'boolean';
+					} else if (/null/.test(match)) {
+						cls = 'null';
+					}
+					return '<span class="' + cls + '">' + match + '</span>'
+				})
+			};
+		},
 		loadCharts: function () {
 			function drawHourlyChart() {
 				var array = [];
 				array.push(['hour', 'count']);
-				_.each(container.data.hour_data, function (element, index) {
-					array.push([index, element]);
+				_.each(container.data.hour_data, function (element) {
+					array.push([element.display, element.count]);
 				});
 				var data = google.visualization.arrayToDataTable(array);
 

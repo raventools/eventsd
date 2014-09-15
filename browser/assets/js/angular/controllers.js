@@ -230,31 +230,15 @@ appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', 'eve
 			$scope.pageChanged();
 		};
 
-		$scope.showSnippit = function (code) {
+		$scope.loadSnip = function(code, time) {
+			$scope.snippit = eventService.formatCode(code, time);
 			$scope.snippy = false;
-			var jsonRaw = JSON.stringify(code, undefined, 2);
-			$scope.snippitRaw = jsonRaw;
-			var json = jsonRaw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-			$scope.snippit = json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-				var cls = 'number';
-				if (/^"/.test(match)) {
-					if (/:$/.test(match)) {
-						cls = 'key';
-					} else {
-						cls = 'string';
-					}
-				} else if (/true|false/.test(match)) {
-					cls = 'boolean';
-				} else if (/null/.test(match)) {
-					cls = 'null';
-				}
-				return '<span class="' + cls + '">' + match + '</span>';
-			});
 			$scope.clip_text = 'Copy to Clipboard';
+
 		};
 
 		$scope.getTextToCopy = function () {
-			return $scope.snippitRaw;
+			return $scope.snippit.raw;
 		};
 
 		$scope.clipClick = function () {
