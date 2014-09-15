@@ -66,7 +66,7 @@ class ApiService extends Redis {
 			$month_data[$date]++;
 
 			$hour = date('H', strtotime($event['datetime']));
-			$hour_data[$hour]['count']++;
+			$hour_data[(int)$hour]['count']++;
 
 			$table_data[] = array(
 				'name' => $bucket,
