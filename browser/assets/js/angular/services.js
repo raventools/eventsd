@@ -1,6 +1,6 @@
 var appServices = angular.module('appServices', []);
 
-appServices.service('eventService', ['$http', function ($http) {
+appServices.service('eventService', ['$http', '$q', function ($http, $q) {
 	var container = null;
 
 	return {
