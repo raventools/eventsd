@@ -69,7 +69,7 @@ appServices.service('eventService', ['$http', function ($http) {
 				try {
 					var chart = new google.visualization.LineChart(document.getElementById('hour-chart'));
 					chart.draw(data, options);
-					deferred.resolve(true);
+					deferred.resolve(chart);
 				} catch (e) {
 					deferred.reject(e);
 				}
@@ -95,7 +95,7 @@ appServices.service('eventService', ['$http', function ($http) {
 				try {
 					var chart = new google.visualization.LineChart(document.getElementById('month-chart'));
 					chart.draw(data, options);
-					deferred.resolve(true);
+					deferred.resolve(chart);
 				} catch (e) {
 					deferred.reject(e);
 				}
@@ -103,13 +103,13 @@ appServices.service('eventService', ['$http', function ($http) {
 				return deferred.promise;
 			}
 
-			drawHourlyChart().then(function() {
+			drawHourlyChart().then(function(chart) {
 				// whee! success
 			}, function(error) {
 				// something with the error
 			});
 
-			drawMonthlyChart().then(function() {
+			drawMonthlyChart().then(function(chart) {
 				// whee! success
 			}, function(error) {
 				// something with the error
