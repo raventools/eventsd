@@ -2,7 +2,8 @@
 require 'digest/sha1'
 
 passwd_file = "#{node[:eventsd_dashboard][:vhost][:documentroot]}/.htpasswd"
-hashed_password = Digest::SHA1.base64digest node[:eventsd_dashboard][:admin][:password]
+hashed_password = ::Digest::SHA1.base64digest node[:eventsd_dashboard][:admin][:password]
+
 file passwd_file do
 	content <<-EOH
 #{node[:eventsd_dashboard][:admin][:username]}:{SHA}#{hashed_password}
