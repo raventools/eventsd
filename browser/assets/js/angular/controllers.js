@@ -199,8 +199,10 @@ appControllers.controller('bucketsCtrl', ['$scope', '$http', '$modal', '$log', '
 	}
 ]);
 
-appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', 'eventService',
-	function ($scope, $http, $routeParams, eventService) {
+appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', '$timeout', 'eventService',
+	function ($scope, $http, $routeParams, $timeout, eventService) {
+		var rowTimeout;
+
 		$scope.snippy = true;
 		$scope.breadCrumb = '<a href="#/">Home</a> > Event Browser';
 		eventService.getEventsEndpoint($routeParams.bucketId).
@@ -228,6 +230,16 @@ appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', 'eve
 		$scope.setPage = function (pageNum) {
 			$scope.currentPage = pageNum;
 			$scope.pageChanged();
+		};
+
+		$scope.checkIn = function(code, time) {
+			rowTimeout = $timeout(function () {
+				$scope.loadSnip(code, time);
+			}, 500);
+		};
+
+		$scope.checkOut = function() {
+			$timeout.cancel(rowTimeout);
 		};
 
 		$scope.loadSnip = function(code, time) {
