@@ -6,7 +6,9 @@ Vagrant::Config.run do |config|
 	config.vm.box_url = "http://raven-opensource.s3.amazonaws.com/centos64.box"
 	config.vm.network :hostonly, "10.45.0.10"
 
+    config.vm.forward_port 9500, 9500
 	config.vm.forward_port 8000, 8085
+	config.vm.forward_port 6969, 6969, protocol: 'udp'
 
 	overrides = JSON.parse(IO.read("overrides.json"))
 

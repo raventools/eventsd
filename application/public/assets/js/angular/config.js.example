@@ -1,0 +1,5 @@
+var config = {
+	'api_host': 'example.com',
+	'api_port': 9500,
+	'api_key': "changethis"
+};
