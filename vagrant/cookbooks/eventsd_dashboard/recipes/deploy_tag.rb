@@ -32,4 +32,9 @@ deploy app_path do
 end
 
 include_recipe "eventsd_dashboard::setup_supervisord"
+
+# installs and starts eventsd and pubsub
+include_recipe "eventsd_dashboard::setup_eventsd"
+
+# installs and starts node httpd
 include_recipe "eventsd_dashboard::setup_application"
