@@ -7,3 +7,7 @@ vagrant/cache/*
 node_modules
 .htaccess
 .htpasswd
+npm-debug.log
+application/app_config.json
+application/public/assets/js/angular/config.js
+application/database.sqlite

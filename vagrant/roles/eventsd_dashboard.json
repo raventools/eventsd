@@ -5,11 +5,6 @@
 	"default_attributes": {
 		"tmp_dir":"/vagrant/cache",
 		"eventsd_dashboard":{
-			"rightscale":{
-				"account_id": "0000",
-				"username": "eventsd@dashboard.com",
-				"password": "12345"
-			},
 			"supervisord":{
 				"username":"super",
 				"password":"Insecure"
@@ -23,6 +18,9 @@
 			"admin":{
 				"username":"admin",
 				"password":"password"
+			},
+			"application":{
+				"api_key":"this is a secret"
 			}
 
 		}
