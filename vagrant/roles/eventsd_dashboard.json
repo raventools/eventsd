@@ -8,7 +8,7 @@
 			"deploy":{
 				"root":"/home/webapps/eventsd_deploy",
 				"repo":"https://github.com/raventools/eventsd.git",
-				"branch":"enhancement/client-api-node"
+				"branch":"feature/chef-deploy-resource"
 			},
 			"supervisord":{
 				"username":"super",
