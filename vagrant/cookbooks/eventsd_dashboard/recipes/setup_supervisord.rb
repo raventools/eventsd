@@ -1,11 +1,11 @@
 
 include_recipe "eventsd_dashboard::default"
 
-{
-	"python-meld3" => "python-meld3-0.6.10-1.noarch.rpm",
-	"python-setuptools" => "python-setuptools-2.2-1.noarch.rpm",
-	"python-supervisor" => "python-supervisor-3.0-1.noarch.rpm"
-}.each do |n,r|
+[
+	["python-meld3","python-meld3-0.6.10-1.noarch.rpm"],
+	["python-setuptools","python-setuptools-2.2-1.noarch.rpm"],
+	["python-supervisor","python-supervisor-3.0-1.noarch.rpm"]
+].each do |n,r|
 	tmp_path = "#{node[:eventsd_dashboard][:tmp_dir]}/#{r}"
 	remote_file tmp_path do
 		source "#{node[:eventsd_dashboard][:attachment_url]}/#{r}"
