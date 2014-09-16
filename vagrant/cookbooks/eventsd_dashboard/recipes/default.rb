@@ -19,12 +19,6 @@ include_recipe "eventsd_dashboard::setup_redis"
 # installs and starts supervisord
 include_recipe "eventsd_dashboard::setup_supervisord"
 
-# create repo dir for both vagrant and production
-directory node[:eventsd_dashboard][:vhost][:documentroot] do
-	action :create
-	recursive true
-end
-
 # disable ipv6
 file "/etc/modprobe.d/ipv6.conf" do
 	content <<-EOH
