@@ -7,3 +7,4 @@ vagrant/cache/*
 node_modules
 .htaccess
 .htpasswd
+npm-debug.log

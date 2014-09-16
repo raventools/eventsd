@@ -5,10 +5,10 @@
 	"default_attributes": {
 		"tmp_dir":"/vagrant/cache",
 		"eventsd_dashboard":{
-			"rightscale":{
-				"account_id": "0000",
-				"username": "eventsd@dashboard.com",
-				"password": "12345"
+			"deploy":{
+				"root":"/home/webapps/eventsd_deploy",
+				"repo":"https://github.com/raventools/eventsd.git",
+				"branch":"enhancement/client-api-node"
 			},
 			"supervisord":{
 				"username":"super",
@@ -32,7 +32,8 @@
 	"chef_type": "role",
 	"run_list": [
 		"eventsd_dashboard::default",
-		"eventsd_dashboard::vagrant"
+		"eventsd_dashboard::vagrant",
+		"eventsd_dashboard::deploy_tag"
 	],
 	"env_run_lists": {
 	}

@@ -19,11 +19,16 @@ end
 
 package "git"
 
-git node[:eventsd_dashboard][:vhost][:documentroot] do
-	repository node[:eventsd_dashboard][:deploy][:repo]
-	reference node[:eventsd_dashboard][:deploy][:branch]
-	action :sync
-	ssh_wrapper wrapper_path
+app_path = node[:eventsd_dashboard][:deploy][:root]
+deploy app_path do
+    provider Chef::Provider::Deploy::Revision
+    repo node[:eventsd_dashboard][:deploy][:repo]
+    revision node[:eventsd_dashboard][:deploy][:branch]
+    ssh_wrapper wrapper_path
+    symlink_before_migrate      ({})
+    symlinks                    ({})
+    purge_before_symlink        ([])
+    create_dirs_before_symlink  ([])
 end
 
 include_recipe "eventsd_dashboard::setup_supervisord"
