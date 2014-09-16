@@ -28,3 +28,9 @@ default[:eventsd_dashboard][:attachment_url] = "http://raven-opensource.s3.amazo
 # http auth
 default[:eventsd_dashboard][:admin][:username] = ""
 default[:eventsd_dashboard][:admin][:password] = ""
+
+# application / api
+default[:eventsd_dashboard][:application][:api_port] = "9500"
+default[:eventsd_dashboard][:application][:browser_port] = "8000"
+default[:eventsd_dashboard][:application][:api_key] = ""
+default[:eventsd_dashboard][:application][:db_file] = "database.sqlite"

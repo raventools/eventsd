@@ -15,8 +15,8 @@ bash "eventsd-npm-install" do
 	EOH
 end
 
-bash "api-npm-install" do
-	cwd "#{release_path}/api"
+bash "application-npm-install" do
+	cwd "#{release_path}/application"
 	user run_as
 	environment run_env
 	code <<-EOH 

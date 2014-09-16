@@ -113,3 +113,10 @@ attribute "eventsd_dashboard/admin/password",
     :required => "optional",
     :type => "string",
     :recipes => ["eventsd_dashboard::default","eventsd_dashboard::deploy_tag","eventsd_dashboard::setup_htauth"]
+
+attribute "eventsd_dashboard/application/api_key",
+    :display_name => "API Key",
+    :description => "API Key",
+    :required => "optional",
+    :type => "string",
+    :recipes => ["eventsd_dashboard::default","eventsd_dashboard::deploy_tag","eventsd_dashboard::setup_application"]

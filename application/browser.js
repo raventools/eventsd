@@ -8,7 +8,7 @@ var app = express(),
 app.use(function(req, res, next) {
 	var user = auth(req);
 
-	if (user === undefined || user['name'] !== config.browser_auth || user['pass'] !== config.browser_pass) {
+	if (user === undefined || user['name'] !== config.browser_user || user['pass'] !== config.browser_pass) {
 		res.statusCode = 401;
 		res.setHeader('WWW-Authenticate', 'Basic realm="MyRealmName"');
 		res.end('Unauthorized');

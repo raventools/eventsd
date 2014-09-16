@@ -32,4 +32,4 @@ deploy app_path do
 end
 
 include_recipe "eventsd_dashboard::setup_supervisord"
-include_recipe "eventsd_dashboard::setup_htauth"
+include_recipe "eventsd_dashboard::setup_application"

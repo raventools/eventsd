@@ -14,7 +14,7 @@ package "npm"
 include_recipe "eventsd_dashboard::setup_epel"
 
 # installs and configures httpd; sets up vhost
-include_recipe "eventsd_dashboard::setup_vhost"
+#include_recipe "eventsd_dashboard::setup_vhost"
 
 # installs and starts redis
 include_recipe "eventsd_dashboard::setup_redis"
@@ -25,8 +25,8 @@ include_recipe "eventsd_dashboard::setup_supervisord"
 # installs and starts eventsd and pubsub
 include_recipe "eventsd_dashboard::setup_eventsd"
 
-# installs and starts eventsd and pubsub
-include_recipe "eventsd_dashboard::setup_api"
+# installs and starts node httpd
+include_recipe "eventsd_dashboard::setup_application"
 
 # create repo dir for both vagrant and production
 directory node[:eventsd_dashboard][:vhost][:documentroot] do
