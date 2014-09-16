@@ -1,4 +1,4 @@
-if File.exists?("/vagrant") then
+if ::File.exists?("/vagrant") then
 	run_as = "vagrant"
 	run_env = {"HOME" => "/home/vagrant"}
 else
