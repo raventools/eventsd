@@ -71,6 +71,13 @@ attribute "eventsd_dashboard/supervisord/port",
 	:default => "9110",
     :recipes => ["eventsd_dashboard::default","eventsd_dashboard::setup_supervisord"]
 
+attribute "eventsd_dashboard/deploy/root",
+    :display_name => "Deploy Root Directory",
+    :description => "Deploy Root Directory",
+    :required => "recommended",
+    :type => "string",
+    :recipes => ["eventsd_dashboard::default","eventsd_dashboard::deploy_tag"]
+
 attribute "eventsd_dashboard/deploy/repo",
     :display_name => "Git Repository URL",
     :description => "Git Repository URL",

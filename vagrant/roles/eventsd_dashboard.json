@@ -5,11 +5,6 @@
 	"default_attributes": {
 		"tmp_dir":"/vagrant/cache",
 		"eventsd_dashboard":{
-			"deploy":{
-				"root":"/home/webapps/eventsd_deploy",
-				"repo":"https://github.com/raventools/eventsd.git",
-				"branch":"feature/chef-deploy-resource"
-			},
 			"supervisord":{
 				"username":"super",
 				"password":"Insecure"
@@ -32,8 +27,7 @@
 	"chef_type": "role",
 	"run_list": [
 		"eventsd_dashboard::default",
-		"eventsd_dashboard::vagrant",
-		"eventsd_dashboard::deploy_tag"
+		"eventsd_dashboard::vagrant"
 	],
 	"env_run_lists": {
 	}

@@ -10,3 +10,6 @@ bash "fix-dns" do
         echo "options single-request-reopen" >> /etc/resolv.conf
     EOH
 end
+
+release_path = node[:eventsd_dashboard][:vhost][:documentroot]
+eval(File.read("#{release_path}/deploy/before_symlink.rb"))

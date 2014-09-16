@@ -25,6 +25,9 @@ include_recipe "eventsd_dashboard::setup_supervisord"
 # installs and starts eventsd and pubsub
 include_recipe "eventsd_dashboard::setup_eventsd"
 
+# installs and starts eventsd and pubsub
+include_recipe "eventsd_dashboard::setup_api"
+
 # create repo dir for both vagrant and production
 directory node[:eventsd_dashboard][:vhost][:documentroot] do
 	action :create
