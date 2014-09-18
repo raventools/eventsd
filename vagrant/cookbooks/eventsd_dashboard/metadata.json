@@ -190,30 +190,78 @@
       ],
       "calculated": false
     },
-    "eventsd_dashboard/admin/username": {
-      "display_name": "Admin Username",
-      "description": "Admin Username",
+    "eventsd_dashboard/application/port": {
+      "display_name": "App Port",
+      "description": "App Port",
       "required": "optional",
       "type": "string",
+      "default": "8000",
       "recipes": [
         "eventsd_dashboard::default",
         "eventsd_dashboard::deploy_tag",
-        "eventsd_dashboard::setup_htauth"
+        "eventsd_dashboard::setup_application"
       ],
       "choice": [
 
       ],
       "calculated": false
     },
-    "eventsd_dashboard/admin/password": {
-      "display_name": "Admin Password",
-      "description": "Admin Password",
+    "eventsd_dashboard/application/auth_system": {
+      "display_name": "Auth System",
+      "description": "Auth System (google or local)",
+      "required": "optional",
+      "choice": [
+        "google",
+        "open"
+      ],
+      "default": "open",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::deploy_tag",
+        "eventsd_dashboard::setup_application"
+      ],
+      "calculated": false,
+      "type": "string"
+    },
+    "eventsd_dashboard/application/client_id": {
+      "display_name": "Google Client ID",
+      "description": "Google Client ID",
       "required": "optional",
       "type": "string",
       "recipes": [
         "eventsd_dashboard::default",
         "eventsd_dashboard::deploy_tag",
-        "eventsd_dashboard::setup_htauth"
+        "eventsd_dashboard::setup_application"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/application/client_secret": {
+      "display_name": "Google Client Secret",
+      "description": "Google Client Secret",
+      "required": "optional",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::deploy_tag",
+        "eventsd_dashboard::setup_application"
+      ],
+      "choice": [
+
+      ],
+      "calculated": false
+    },
+    "eventsd_dashboard/application/client_redirect": {
+      "display_name": "Google Client Redirect",
+      "description": "Google Client Redirect",
+      "required": "optional",
+      "type": "string",
+      "recipes": [
+        "eventsd_dashboard::default",
+        "eventsd_dashboard::deploy_tag",
+        "eventsd_dashboard::setup_application"
       ],
       "choice": [
 
