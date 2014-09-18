@@ -1,7 +1,7 @@
 {
-	"name": "eventsd-redis-api",
-	"description": "public facing api server for use with the eventsd front-end",
-	"version": "0.0.1",
+	"name": "eventsd-frontend",
+	"description": "public facing api server and browser for use with the eventsd front-end",
+	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
 		"express": "4.x",
@@ -10,6 +10,9 @@
 		"sqlite3": "*",
 		"q": "*",
 		"underscore": "*",
-		"basic-auth": "*"
+		"googleapis": "*",
+		"express-jwt": "*",
+		"jsonwebtoken": "*",
+		"cookie-parser": "*"
 	}
 }

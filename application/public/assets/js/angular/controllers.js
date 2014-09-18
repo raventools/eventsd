@@ -41,6 +41,14 @@ appControllers.controller('modalInstanceCtrl', ['$scope', '$modalInstance', 'dat
 	}
 ]);
 
+appControllers.controller('loginCtrl', ['$scope', 'authService',
+	function ($scope, authService) {
+		$scope.google_oauth = function() {
+			authService.googleRedirect(false);
+		};
+	}
+]);
+
 appControllers.controller('bucketsCtrl', ['$scope', '$http', '$modal', '$log', 'eventService', 'localStorageService',
 	function ($scope, $http, $modal, $log, eventService, localStorageService) {
 		var alertTimeout,
@@ -213,6 +221,7 @@ appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', '$ti
 				$scope.month_data = data.data.month_data;
 				$scope.hour_data = data.data.hour_data;
 				$scope.predicate = 'time';
+				$scope.reverse = true;
 				$scope.bucket = $routeParams.bucketId;
 				$scope.totalItems = $scope.table_data.length;
 				$scope.itemsPerPage = 10;
