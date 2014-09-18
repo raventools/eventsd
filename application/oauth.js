@@ -30,8 +30,7 @@ var oauthTools = {
 		db.storeUserToken(id, tokens);
 
 		var jwt_token = jwt.sign({
-			'gid': id,
-			'tokens': tokens
+			'gid': id
 		}, config.client_secret, { expiresInMinutes: 60*24 });
 
 		res.cookie('jwt', jwt_token, { maxAge: 60*60*24*90 });
@@ -174,6 +173,17 @@ api = {
 			// an error occured while getting a token
 			res.redirect('/browser/#/auth');
 		});
+	},
+	/**
+	 * Allows for local override of the authentication system
+	 *
+	 * @param req
+	 * @param res
+	 */
+	authHook: function(req, res) {
+		if (!_.has(config, 'auth_system') || !config.auth_system) {
+			oauthTools.storeTokens(res, '123456', { nope: true });
+		}
 	}
 };
 

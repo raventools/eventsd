@@ -10,15 +10,22 @@ var app = express(),
 
 app.use(cookieParser(config.client_secret));
 
-app.get('/', function(req, res){
+app.all('*', function(req, res, next) {
+	oauth.authHook(req, res);
+	next();
+});
+
+app.all('/api/*', expressJwt({secret: config.client_secret}));
+
+app.get('/', function(req, res) {
 	res.redirect('/browser')
 });
 
-app.get('/events/:bucket', expressJwt({secret: config.client_secret}), function(req, res) {
+app.get('/api/events/:bucket', function(req, res) {
 	eventsdApi.events(req, res)
 });
 
-app.get('/buckets', expressJwt({secret: config.client_secret}), function(req, res) {
+app.get('/api/buckets', function(req, res) {
 	eventsdApi.buckets(req, res)
 });
 

@@ -35,7 +35,7 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 			getBucketsEndpoint: function () {
 				var cookies = $cookies,
 					token = false,
-					url = '/buckets';
+					url = '/api/buckets';
 
 				if (_.has(cookies, 'jwt')) {
 					token = cookies.jwt;
@@ -63,7 +63,7 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 			getEventsEndpoint: function (bucket) {
 				var cookies = $cookies,
 					token = false,
-					url = "/events/" + bucket;
+					url = "/api/events/" + bucket;
 
 				if (_.has(cookies, 'jwt')) {
 					token = cookies.jwt;

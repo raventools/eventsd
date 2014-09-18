@@ -1,5 +1,6 @@
 {
 	"port": 8000,
+	"auth_system": "google", // false, for local
 	"client_id": "google_client_id",
 	"client_secret": "google_client_secret",
 	"client_redirect": "google_client_redirect",

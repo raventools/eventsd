@@ -5,7 +5,9 @@ var fs = require("fs"),
 	OAuth2 = google.auth.OAuth2,
 	plus = google.plus('v1');
 
-var oauth2client = new OAuth2(config.client_id, config.client_secret, config.client_redirect);
+if (config.hasOwnProperty('auth_system') && config.auth_system === 'google') {
+	var oauth2client = new OAuth2(config.client_id, config.client_secret, config.client_redirect);
+}
 
 /**
  * Gapi Service - Provides Oauth Services based on Google+ Profile
