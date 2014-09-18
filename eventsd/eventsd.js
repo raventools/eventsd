@@ -99,6 +99,9 @@ server.on("listening", function () {
 	console.log("server listening " + address.address + ":" + address.port); 
 });
 
+server.on("connect", function() {
+    console.log("derped");
+});
 function publishToFaye(ob_event) {
 	var pubsub_bucket = '/eventsd/'+ob_event.bucket.replace(/\./g,'/');
 	faye_client.publish(pubsub_bucket,ob_event);

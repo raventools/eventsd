@@ -1,5 +1,6 @@
 var app = angular.module('eventsd_browser', [
 	'ngRoute',
+	'ngCookies',
 	'ngSanitize',
 	'ngClipboard',
 	'appControllers',
@@ -18,6 +19,10 @@ app.config(['$routeProvider',
 			when('/events/:bucketId', {
 				templateUrl: '/browser/views/events.html',
 				controller: 'eventsCtrl'
+			}).
+			when('/auth', {
+				templateUrl: '/browser/views/partials/auth.html',
+				controller: 'loginCtrl'
 			});
 	}
 ]);

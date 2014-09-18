@@ -41,6 +41,15 @@ appControllers.controller('modalInstanceCtrl', ['$scope', '$modalInstance', 'dat
 	}
 ]);
 
+appControllers.controller('loginCtrl', ['$scope', 'authService',
+	function ($scope, authService) {
+		$scope.google_oauth = function() {
+			console.log('triggered');
+			authService.googleRedirect(false);
+		};
+	}
+]);
+
 appControllers.controller('bucketsCtrl', ['$scope', '$http', '$modal', '$log', 'eventService', 'localStorageService',
 	function ($scope, $http, $modal, $log, eventService, localStorageService) {
 		var alertTimeout,
