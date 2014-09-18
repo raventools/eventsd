@@ -20,7 +20,8 @@
 				"password":"password"
 			},
 			"application":{
-				"api_key":"this is a secret"
+				"auth_system":"open",
+				"client_secret":"too many secrets"
 			}
 
 		}
