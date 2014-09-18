@@ -181,7 +181,7 @@ api = {
 	 * @param res
 	 */
 	authHook: function(req, res) {
-		if (!_.has(config, 'auth_system') || !config.auth_system) {
+		if (!_.has(config, 'auth_system') || !config.auth_system || config.auth_system == "open") {
 			oauthTools.storeTokens(res, '123456', { nope: true });
 		}
 	}
