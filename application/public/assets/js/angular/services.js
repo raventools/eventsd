@@ -121,6 +121,40 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 				return deferred.promise;
 			},
 			loadCharts: function () {
+				var global_table_opts = {
+					'backgroundColor': {
+						stroke: '#1c1e22',
+						strokeWidth: 2,
+						fill: '#2e3338'
+					},
+					'chartArea': {
+						width: '80%',
+						height: '65%',
+						left: '12%'
+					},
+					hAxis: {
+						gridlines: {
+							color: '#1c1e22'
+						},
+						textStyle: {
+							color: '#fff'
+						}
+					},
+					vAxis: {
+						gridlines: {
+							color: '#1c1e22'
+						},
+						textStyle: {
+							color: '#ccc'
+						}
+					},
+					colors: [ '#adadad' ],
+					titleTextStyle: {
+						color: '#fff'
+					}
+				};
+
+				// parse container data
 				function drawHourlyChart() {
 					var deferred = $q.defer();
 
