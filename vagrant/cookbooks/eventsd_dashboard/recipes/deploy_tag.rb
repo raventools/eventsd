@@ -29,7 +29,7 @@ deploy app_path do
 	symlinks					({})
 	purge_before_symlink		([])
 	create_dirs_before_symlink	([])
-	notifies :restart, "service[supervisord], :delayed
+	notifies :restart, "service[supervisord]", :delayed
 end
 
 include_recipe "eventsd_dashboard::setup_supervisord"
