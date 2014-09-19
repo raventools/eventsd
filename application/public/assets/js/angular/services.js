@@ -74,6 +74,18 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 						url: url,
 						headers: {'Authorization': 'Bearer ' + token}
 					}).then(function (response) {
+						_.each(response.data.data.table_data, function(element) {
+							var date = new Date(element.time);
+							var year = date.getFullYear();
+							var month = date.getMonth();
+							var day = date.getDate();
+							var hour = date.getHours();
+							var min = date.getMinutes();
+							var ms = date.getMilliseconds();
+							element.ts = new Date(year,month,day,hour+(date.getTimezoneOffset()/60),min,ms).getTime();
+						});
+
+						console.log(response);
 						return response.data;
 					},
 					function (error) {
@@ -98,7 +110,7 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 					json = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 				deferred.resolve({
-					'time': time,
+					'time': Date.parse(time),
 					'raw': raw,
 					'html': json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
 						var cls = 'number';

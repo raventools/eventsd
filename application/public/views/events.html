@@ -14,14 +14,13 @@
 			<tr ng-repeat="row in table_data_paginated | orderBy:predicate:reverse"
 				ng-mouseenter="checkIn(row.data, row.time)" ng-mouseleave="checkOut()">
 				<td>
-					<a ng-click="loadSnip(row.data, row.time)" href="">{{row.name}}</a>
+					<a ng-click="loadSnip(row.data, row.ts)" href="">{{row.name}}</a>
 				</td>
 				<td>{{row.size}}</td>
-				<td>{{row.time | date:'medium'}}</td>
+				<td>{{row.ts | date:'medium'}}</td>
 			</tr>
 			</tbody>
 		</table>
-		{{fu}}
 		<div style="float: right;">
 			<pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
 						ng-change="pageChanged()" class="pagination-sm" max-size="9"
