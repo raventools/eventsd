@@ -10,18 +10,19 @@ div.buckets-fixed {
 	right: 0px;
 	display: block;
 	position: fixed;
-	width: 525px;
 }
 
-div.buckets-fixed div#month-chart {
-	width: 500px;
+div.buckets-fixed div#month-chart,
+div.buckets-fixed div#hour-chart {
+	width: 100%;
 	height: 250px;
 	margin-bottom: 5px;
 }
 
-div.buckets-fixed div#hour-chart {
-	width: 500px;
-	height: 250px;
+small.bucket-subhead {
+	top: -12px;
+	position: relative;
+	margin-left: 10px;
 }
 
 div.info-header-left {
@@ -33,7 +34,7 @@ div.info-header-left {
 
 div.info-header-right {
 	text-align: right;
-	width: 55%;
+	width: 59.5555%;
 	display: inline-block;
 	vertical-align: top;
 }
