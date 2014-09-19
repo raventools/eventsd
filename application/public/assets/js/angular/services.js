@@ -93,9 +93,8 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 				container = value;
 			},
 			formatCode: function (code, time) {
-				var deferred = $q.defer();
-
-				var raw = JSON.stringify(code, undefined, 2),
+				var deferred = $q.defer(),
+					raw = JSON.stringify(code, undefined, 2),
 					json = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 				deferred.resolve({
@@ -155,68 +154,83 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 				};
 
 				// parse container data
-				function drawHourlyChart() {
-					var deferred = $q.defer();
+				function parseContainerData() {
+					var deferred = $q.defer(),
+						month_data = {},
+						hour_data = [];
 
+					_.each(_.range(0, 24), function (hour) {
+						hour_data[hour] = {
+							count: 0,
+							display: (hour < 10) ? '0' + hour : hour.toString()
+						}
+					});
+
+					_.each(container.data.table_data, function(element) {
+						var ev_date = new Date(element.time),
+							month_tmp = new Date(ev_date.getUTCFullYear(), ev_date.getUTCMonth(), ev_date.getUTCDate()).getTime(),
+							yesterday = new Date(Date.parse(element.time) - (24*60*60*1000));
+
+						if (_.has(month_data, month_tmp)) {
+							month_data[month_tmp]++;
+						} else {
+							month_data[month_tmp] = 0;
+						}
+
+						if (Date.parse(element.time) > yesterday) {
+							hour_data[ev_date.getUTCHours()].count++;
+						}
+					});
+
+					deferred.resolve({
+						month_data: month_data,
+						hour_data: hour_data
+					});
+
+					return deferred.promise;
+				}
+
+				function drawHourlyChart(data) {
 					var array = [];
 					array.push(['hour', 'count']);
-					_.each(container.data.hour_data, function (element) {
+					_.each(data.hour_data, function (element) {
 						array.push([element.display, element.count]);
 					});
-					var data = google.visualization.arrayToDataTable(array);
+
+					var dataTable = google.visualization.arrayToDataTable(array);
 
 					var options = {
 						title: 'Activity in past 24 hours',
 						legend: {position: 'none'}
 					};
+					angular.extend(options, global_table_opts);
 
-					try {
-						var chart = new google.visualization.LineChart(document.getElementById('hour-chart'));
-						chart.draw(data, options);
-						deferred.resolve(chart);
-					} catch (e) {
-						deferred.reject(e);
-					}
-
-					return deferred.promise;
+					var chart = new google.visualization.LineChart(document.getElementById('hour-chart'));
+					chart.draw(dataTable, options);
 				}
 
-				function drawMonthlyChart() {
-					var deferred = $q.defer();
-
+				function drawMonthlyChart(data) {
 					var array = [];
 					array.push(['day', 'count']);
-					_.each(container.data.month_data, function (element, index) {
-						array.push([index, element]);
+
+					_.each(data.month_data, function (element, index) {
+						array.push([new Date(parseInt(index)), element]);
 					});
-					var data = google.visualization.arrayToDataTable(array);
+					var dataTable = google.visualization.arrayToDataTable(array);
 
 					var options = {
 						title: 'Activity in past 30 days',
 						legend: {position: 'none'}
 					};
+					angular.extend(options, global_table_opts);
 
-					try {
-						var chart = new google.visualization.LineChart(document.getElementById('month-chart'));
-						chart.draw(data, options);
-						deferred.resolve(chart);
-					} catch (e) {
-						deferred.reject(e);
-					}
-
-					return deferred.promise;
+					var chart = new google.visualization.LineChart(document.getElementById('month-chart'));
+					chart.draw(dataTable, options);
 				}
 
-				drawHourlyChart().then(function (chart) {
-					// whee! success
-				}, function (error) {
-					// something with the error
-				});
-
-				drawMonthlyChart().then(function (chart) {
-					// whee! success
-				}, function (error) {
-					// something with the error
+				parseContainerData().then(function (data) {
+					drawHourlyChart(data);
+					drawMonthlyChart(data);
 				});
 			}
 		}
