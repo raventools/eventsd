@@ -21,14 +21,15 @@ package "git"
 
 app_path = node[:eventsd_dashboard][:deploy][:root]
 deploy app_path do
-    provider Chef::Provider::Deploy::Revision
-    repo node[:eventsd_dashboard][:deploy][:repo]
-    revision node[:eventsd_dashboard][:deploy][:branch]
-    ssh_wrapper wrapper_path
-    symlink_before_migrate      ({})
-    symlinks                    ({})
-    purge_before_symlink        ([])
-    create_dirs_before_symlink  ([])
+	provider Chef::Provider::Deploy::Revision
+	repo node[:eventsd_dashboard][:deploy][:repo]
+	revision node[:eventsd_dashboard][:deploy][:branch]
+	ssh_wrapper wrapper_path
+	symlink_before_migrate		({})
+	symlinks					({})
+	purge_before_symlink		([])
+	create_dirs_before_symlink	([])
+	notifies :restart, "service[supervisord], :delayed
 end
 
 include_recipe "eventsd_dashboard::setup_supervisord"
