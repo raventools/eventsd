@@ -277,8 +277,7 @@
     "eventsd_dashboard::setup_vhost": "installs and configures apache and php",
     "eventsd_dashboard::setup_php": "installs and configures apache and php",
     "eventsd_dashboard::setup_epel": "includes redhat and rightscale's epel repositories",
-    "eventsd_dashboard::setup_supervisord": "configures supervisord authentication parameters in app",
-    "eventsd_dashboard::setup_htauth": "sets up basic http authentication"
+    "eventsd_dashboard::setup_supervisord": "configures supervisord authentication parameters in app"
   },
   "version": "0.1.0"
 }

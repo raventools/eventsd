@@ -15,7 +15,6 @@ recipe "eventsd_dashboard::setup_vhost", "installs and configures apache and php
 recipe "eventsd_dashboard::setup_php", "installs and configures apache and php"
 recipe "eventsd_dashboard::setup_epel", "includes redhat and rightscale's epel repositories"
 recipe "eventsd_dashboard::setup_supervisord", "configures supervisord authentication parameters in app"
-recipe "eventsd_dashboard::setup_htauth", "sets up basic http authentication"
 
 attribute "eventsd_dashboard",
 	:display_name => "eventsd Dashboard",
