@@ -100,13 +100,12 @@ var api = {
 
 		Q.npost(client, "zrange", [helpers.keyName(bucket), 0, 1000]).then(function (results) {
 			_.each(results, function (ev) {
-				var event = JSON.parse(ev),
-					date = new Date(event.datetime);
+				var event = JSON.parse(ev);
 
 				table_data.push({
 					name: bucket,
 					size: helpers.getSize(ev),
-					time: date.toString(),
+					time: Date.parse(event.datetime),
 					data: event.data
 				});
 			});
