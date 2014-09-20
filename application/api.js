@@ -127,7 +127,7 @@ var api = {
 		Q.spread([
 			Q.ninvoke(client, "keys", "EventsD:*"),
 			Q.npost(client, "zrevrangebyscore", redisPresets.counters)
-		]).nodefiy(function (keys, counters) {
+		], function (keys, counters) {
 			var key_data = [],
 				csorted = {};
 
@@ -153,7 +153,7 @@ var api = {
 					var obj = {
 						'name': helpers.bucketName(element),
 						'hits': (_.has(csorted, helpers.bucketName(element))) ?
-							csorted[helpers.bucketName(element)] : 0,
+							parseInt(csorted[helpers.bucketName(element)], 10) : 0,
 						'time': (_.isObject(time)) ?
 							time.getTime() : 0
 					};
