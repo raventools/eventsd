@@ -96,44 +96,23 @@ var api = {
 	 */
 	events: function (req, res) {
 		var bucket = req.params.bucket,
-			table_data = [],
-			hour_data = [],
-			month_data = {};
+			table_data = [];
 
 		Q.npost(client, "zrange", [helpers.keyName(bucket), 0, 1000]).then(function (results) {
-			_.each(_.range(0, 24), function (hour) {
-				hour_data[hour] = {
-					count: 0,
-					display: (hour < 10) ? '0' + hour : hour.toString()
-				}
-			});
-
 			_.each(results, function (ev) {
-				var event = JSON.parse(ev),
-					date = new Date(event.datetime),
-					dateString = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
-
-				if (!_.has(month_data, dateString)) {
-					month_data[dateString] = 0;
-				}
-				month_data[dateString]++;
-				hour_data[date.getHours()].count++;
+				var event = JSON.parse(ev);
 
 				table_data.push({
 					name: bucket,
 					size: helpers.getSize(ev),
-					time: date.getTime(),
+					time: Date.parse(event.datetime),
 					data: event.data
 				});
 			});
-			table_data.reverse();
 		}).then(function () {
-			var pkg = {
-				'month_data': month_data,
-				'hour_data': hour_data,
-				'table_data': table_data
-			};
-			helpers.packageJson(res, 'events', pkg);
+			helpers.packageJson(res, 'events', {
+				table_data: table_data
+			});
 		});
 	},
 	/**
@@ -146,7 +125,7 @@ var api = {
 	buckets: function(req, res) {
 		// promises, yeaaaahhhh
 		Q.spread([
-			Q.ninvoke(client, "keys", "*"),
+			Q.ninvoke(client, "keys", "EventsD:*"),
 			Q.npost(client, "zrevrangebyscore", redisPresets.counters)
 		], function (keys, counters) {
 			var key_data = [],
@@ -174,7 +153,7 @@ var api = {
 					var obj = {
 						'name': helpers.bucketName(element),
 						'hits': (_.has(csorted, helpers.bucketName(element))) ?
-							csorted[helpers.bucketName(element)] : 0,
+							parseInt(csorted[helpers.bucketName(element)], 10) : 0,
 						'time': (_.isObject(time)) ?
 							time.getTime() : 0
 					};
