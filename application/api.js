@@ -126,9 +126,9 @@ var api = {
 	buckets: function(req, res) {
 		// promises, yeaaaahhhh
 		Q.spread([
-			Q.ninvoke(client, "keys", "*"),
+			Q.ninvoke(client, "keys", "EventsD:*"),
 			Q.npost(client, "zrevrangebyscore", redisPresets.counters)
-		], function (keys, counters) {
+		]).nodefiy(function (keys, counters) {
 			var key_data = [],
 				csorted = {};
 

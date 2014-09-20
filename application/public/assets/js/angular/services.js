@@ -48,6 +48,12 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 						'Authorization': 'Bearer ' + token
 					}
 				}).then(function (success) {
+						angular.forEach(success.data.data, function(element){
+							var date = new Date(element.time);
+							date.setHours(date.getHours()+(date.getTimezoneOffset()/60));
+							element.ts = date.getTime();
+						});
+
 						return success.data;
 					},
 					function (error) {
@@ -74,15 +80,10 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 						url: url,
 						headers: {'Authorization': 'Bearer ' + token}
 					}).then(function (response) {
-						_.each(response.data.data.table_data, function(element) {
+						angular.forEach(response.data.data.table_data, function(element) {
 							var date = new Date(element.time);
-							var year = date.getFullYear();
-							var month = date.getMonth();
-							var day = date.getDate();
-							var hour = date.getHours();
-							var min = date.getMinutes();
-							var ms = date.getMilliseconds();
-							element.ts = new Date(year,month,day,hour+(date.getTimezoneOffset()/60),min,ms).getTime();
+							date.setHours(date.getHours()+(date.getTimezoneOffset()/60));
+							element.ts = date.getTime();
 						});
 
 						console.log(response);
