@@ -29,7 +29,7 @@
 		<td ng-mouseenter="table.checkIn(bucket.name)" ng-mouseleave="table.checkOut()"><a
 				href="#events/{{bucket.name}}">{{bucket.name}}</a>
 		</td>
-		<td>{{bucket.hits}}</td>
+		<td>{{bucket.hits | number}}</td>
 		<td>{{bucket.ts | date:'medium'}}</td>
 	</tr>
 	</tbody>

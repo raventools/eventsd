@@ -84,9 +84,9 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 							var date = new Date(element.time);
 							date.setHours(date.getHours()+(date.getTimezoneOffset()/60));
 							element.ts = date.getTime();
+							element.hits = parseFloat(element.hits);
 						});
 
-						console.log(response);
 						return response.data;
 					},
 					function (error) {
