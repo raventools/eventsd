@@ -50,7 +50,7 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 				}).then(function (success) {
 						angular.forEach(success.data.data, function(element){
 							var date = new Date(element.time);
-							date.setHours(date.getHours()+(date.getTimezoneOffset()/60));
+							date.setHours(date.getUTCHours()+(date.getTimezoneOffset()/60));
 							element.ts = date.getTime();
 						});
 
@@ -181,16 +181,16 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 
 					_.each(container.data.table_data, function(element) {
 						var ev_date = new Date(element.time),
-							month_tmp = new Date(ev_date.getUTCFullYear(), ev_date.getUTCMonth(), ev_date.getUTCDate()).getTime(),
-							yesterday = new Date(Date.parse(element.time) - (24*60*60*1000));
+							month_utc = new Date(ev_date.getUTCFullYear(), ev_date.getUTCMonth(), ev_date.getUTCDate()).getTime(),
+							yesterday = new Date(ev_date.getTime() - (24*60*60*1000));
 
-						if (_.has(month_data, month_tmp)) {
-							month_data[month_tmp]++;
+						if (_.has(month_data, month_utc)) {
+							month_data[month_utc]++;
 						} else {
-							month_data[month_tmp] = 0;
+							month_data[month_utc] = 0;
 						}
 
-						if (Date.parse(element.time) > yesterday) {
+						if (month_utc > yesterday) {
 							hour_data[ev_date.getUTCHours()].count++;
 						}
 					});
@@ -227,7 +227,9 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 					array.push(['day', 'count']);
 
 					_.each(data.month_data, function (element, index) {
-						array.push([new Date(parseInt(index)), element]);
+						var date = new Date(parseInt(index));
+						var utcDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
+						array.push([utcDate, element]);
 					});
 					var dataTable = google.visualization.arrayToDataTable(array);
 
