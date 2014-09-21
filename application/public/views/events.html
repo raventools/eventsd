@@ -12,7 +12,7 @@
 			</thead>
 			<tbody>
 			<tr ng-repeat="row in table_data_paginated | orderBy:predicate:reverse"
-				ng-mouseenter="checkIn(row.data, row.time)" ng-mouseleave="checkOut()">
+				ng-mouseenter="checkIn(row.data, row.ts)" ng-mouseleave="checkOut()">
 				<td>
 					<a ng-click="loadSnip(row.data, row.ts)" href="">{{row.name}}</a>
 				</td>

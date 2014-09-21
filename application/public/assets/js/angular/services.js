@@ -50,7 +50,7 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 				}).then(function (success) {
 						angular.forEach(success.data.data, function(element){
 							var date = new Date(element.time);
-							date.setHours(date.getUTCHours()+(date.getTimezoneOffset()/60));
+							date.setHours(date.getHours()+(date.getTimezoneOffset()/60));
 							element.ts = date.getTime();
 						});
 
@@ -106,12 +106,13 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 				container = value;
 			},
 			formatCode: function (code, time) {
+				console.log(time);
 				var deferred = $q.defer(),
 					raw = JSON.stringify(code, undefined, 2),
 					json = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 				deferred.resolve({
-					'time': Date.parse(time),
+					'time': new Date(time),
 					'raw': raw,
 					'html': json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
 						var cls = 'number';
