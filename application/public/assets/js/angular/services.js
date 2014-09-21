@@ -31,73 +31,63 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 	function ($http, $q, $cookies, authService) {
 		var container = null;
 
-		return {
-			getBucketsEndpoint: function () {
-				var cookies = $cookies,
-					token = false,
-					url = '/api/buckets';
+		var getRequest = function(params) {
+			var token = false;
 
-				if (_.has(cookies, 'jwt')) {
-					token = cookies.jwt;
+			if (_.has($cookies, 'jwt')) {
+				token = $cookies.jwt;
+			}
+
+			if (!_.has(params, 'success') || !_.isFunction(params.success)) {
+				params.success = function() {
+					// black hole
+				}
+			}
+
+			return $http({
+				method: 'get',
+				url: params.url,
+				headers: {
+					'Authorization': 'Bearer ' + token
+				}
+			}).then(params.success, function(error) {
+				if (error.status === 401) {
+					authService.googleRedirect(true);
 				}
 
-				var promise = $http({
-					method: 'get',
-					url: url,
-					headers: {
-						'Authorization': 'Bearer ' + token
-					}
-				}).then(function (success) {
-						angular.forEach(success.data.data, function(element){
-							var date = new Date(element.time);
-							date.setHours(date.getHours()+(date.getTimezoneOffset()/60));
-							element.ts = date.getTime();
+				return [];
+			});
+		};
+
+		return {
+			deleteBucketEndpoint: function(bucket) {
+				return getRequest({
+					url: '/api/delete/' + bucket
+				});
+			},
+			getBucketsEndpoint: function () {
+				return getRequest({
+					url: '/api/buckets',
+					success: function (success) {
+						angular.forEach(success.data.data, function (element) {
+							element.ts = Date.parse(element.time);
 						});
 
 						return success.data;
-					},
-					function (error) {
-						if (error.status === 401) {
-							authService.googleRedirect(true);
-						}
-
-						return [];
-					});
-
-				return promise;
+					}
+				});
 			},
 			getEventsEndpoint: function (bucket) {
-				var cookies = $cookies,
-					token = false,
-					url = "/api/events/" + bucket;
-
-				if (_.has(cookies, 'jwt')) {
-					token = cookies.jwt;
-				}
-
-				var promise = $http({
-						method: 'get',
-						url: url,
-						headers: {'Authorization': 'Bearer ' + token}
-					}).then(function (response) {
-						angular.forEach(response.data.data.table_data, function(element) {
-							var date = new Date(element.time);
-							date.setHours(date.getHours()+(date.getTimezoneOffset()/60));
-							element.ts = date.getTime();
-							element.hits = parseFloat(element.hits);
+				return getRequest({
+					url: "/api/events/" + bucket,
+					success: function (response) {
+						angular.forEach(response.data.data.table_data, function (element) {
+							element.ts = Date.parse(element.time);
 						});
 
 						return response.data;
-					},
-					function (error) {
-						if (error.status === 401) {
-							authService.googleRedirect(true);
-						}
-
-						return [];
-					});
-
-				return promise;
+					}
+				});
 			},
 			getProperty: function () {
 				return container;
@@ -106,7 +96,6 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 				container = value;
 			},
 			formatCode: function (code, time) {
-				console.log(time);
 				var deferred = $q.defer(),
 					raw = JSON.stringify(code, undefined, 2),
 					json = raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -182,17 +171,18 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 
 					_.each(container.data.table_data, function(element) {
 						var ev_date = new Date(element.time),
-							month_utc = new Date(ev_date.getUTCFullYear(), ev_date.getUTCMonth(), ev_date.getUTCDate()).getTime(),
-							yesterday = new Date(ev_date.getTime() - (24*60*60*1000));
+							ev_date_ts = Date.parse(element.time),
+							ev_date_month = new Date(ev_date.getFullYear(), ev_date.getMonth(), ev_date.getDate()).getTime(),
+							ev_date_yesterday = new Date(ev_date_ts - (24*60*60*1000));
 
-						if (_.has(month_data, month_utc)) {
-							month_data[month_utc]++;
+						if (_.has(month_data, ev_date_month)) {
+							month_data[ev_date_month]++;
 						} else {
-							month_data[month_utc] = 0;
+							month_data[ev_date_month] = 1;
 						}
 
-						if (month_utc > yesterday) {
-							hour_data[ev_date.getUTCHours()].count++;
+						if (ev_date_ts > ev_date_yesterday.getTime()) {
+							hour_data[ev_date.getHours()].count++;
 						}
 					});
 
@@ -229,8 +219,7 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 
 					_.each(data.month_data, function (element, index) {
 						var date = new Date(parseInt(index));
-						var utcDate = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate());
-						array.push([utcDate, element]);
+						array.push([date, element]);
 					});
 					var dataTable = google.visualization.arrayToDataTable(array);
 

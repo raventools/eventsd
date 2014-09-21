@@ -120,7 +120,7 @@ appControllers.controller('bucketsCtrl', ['$scope', '$http', '$modal', '$log', '
 				});
 
 				modalInstance.result.then(function (bucket) {
-					$http.get('/index.php/v2/api/delete/' + bucket).then(function() {
+					eventService.deleteBucketEndpoint(bucket).then(function() {
 						_.each($scope.all.data, function(element, index) {
 							if (element.name == bucket) {
 								$scope.all.data.splice(index, 1);
