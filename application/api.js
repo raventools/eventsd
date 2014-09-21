@@ -28,7 +28,7 @@ var helpers = {
 	 * @param key String
 	 * @returns {*|XML|string|void}
 	 */
-	bucketName: function(key) {
+	bucketName: function (key) {
 		return key.replace("EventsD:", "");
 	},
 	/**
@@ -38,7 +38,7 @@ var helpers = {
 	 * @param bucket String
 	 * @returns {string}
 	 */
-	keyName: function(bucket) {
+	keyName: function (bucket) {
 		return "EventsD:" + bucket;
 	},
 	/**
@@ -48,10 +48,10 @@ var helpers = {
 	 * @param str String
 	 * @returns {string}
 	 */
-	getSize: function(str) {
+	getSize: function (str) {
 		var size = encodeURI(str).split(/%..|./).length - 1;
 		if (size > 1024) {
-			size = (size/1024).toFixed(2) + ' kb';
+			size = (size / 1024).toFixed(2) + ' kb';
 		} else {
 			size = size + " b"
 		}
@@ -67,9 +67,9 @@ var helpers = {
 	 * @param data string - JSON object
 	 * @param status string optional - Response status
 	 */
-	packageJson: function(res, info, data, status) {
+	packageJson: function (res, info, data, status) {
 		var d = new Date();
-		d.setMinutes(d.getMinutes()+1);
+		d.setMinutes(d.getMinutes() + 1);
 		res.header('Cache-Control', 'must-revalidate');
 		res.header('Expires', d.toUTCString());
 		res.header('Content-type', 'application/json');
@@ -122,14 +122,16 @@ var api = {
 	 * @param req Object - Express request object
 	 * @param res Object - Express response object
 	 */
-	buckets: function(req, res) {
-		// promises, yeaaaahhhh
+	buckets: function (req, res) {
+		var promises = [];
+
 		Q.spread([
 			Q.ninvoke(client, "keys", "EventsD:*"),
 			Q.npost(client, "zrevrangebyscore", redisPresets.counters)
 		], function (keys, counters) {
 			var key_data = [],
-				csorted = {};
+				csorted = {},
+				deferred = Q.defer();
 
 			// php was easier
 			csorted = _.object(_.toArray(_.groupBy(counters, function (a, b) {
@@ -137,11 +139,13 @@ var api = {
 			})));
 
 			_.each(keys, function (element) {
+				var defer = Q.defer();
+
 				if (_.contains(redisPresets.ignores, element)) {
 					return;
 				}
 
-				Q.npost(client, "zrevrange", [element, 0, 1]).then(function (latest) {
+				var promise = Q.npost(client, "zrevrange", [element, 0, 1]).then(function (latest) {
 					var bucket_data = {},
 						time;
 
@@ -160,9 +164,19 @@ var api = {
 
 					key_data.push(obj);
 				}).then(function () {
-					helpers.packageJson(res, 'buckets', key_data);
+					defer.resolve();
 				});
+
+				promises.push(promise);
 			});
+
+			Q.all(promises).then(function () {
+				deferred.resolve();
+			});
+
+			deferred.promise.done(function () {
+				helpers.packageJson(res, 'buckets', key_data);
+			})
 		});
 	}
 };

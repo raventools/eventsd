@@ -6,7 +6,6 @@
 	"dependencies": {
 		"express": "4.x",
 		"redis": "*",
-		"hiredis": "*",
 		"sqlite3": "*",
 		"q": "*",
 		"underscore": "*",
