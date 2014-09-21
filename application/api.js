@@ -100,12 +100,13 @@ var api = {
 
 		Q.npost(client, "zrange", [helpers.keyName(bucket), 0, 1000]).then(function (results) {
 			_.each(results, function (ev) {
-				var event = JSON.parse(ev);
+				var event = JSON.parse(ev),
+					time = new Date(event.datetime);
 
 				table_data.push({
 					name: bucket,
 					size: helpers.getSize(ev),
-					time: Date.parse(event.datetime),
+					time: time.toUTCString(),
 					data: event.data
 				});
 			});
@@ -157,9 +158,9 @@ var api = {
 					var obj = {
 						'name': helpers.bucketName(element),
 						'hits': (_.has(csorted, helpers.bucketName(element))) ?
-							parseInt(csorted[helpers.bucketName(element)], 10) : 0,
+							csorted[helpers.bucketName(element)] : 0,
 						'time': (_.isObject(time)) ?
-							time.getTime() : 0
+							time.toUTCString() : 0
 					};
 
 					key_data.push(obj);
@@ -178,6 +179,11 @@ var api = {
 				helpers.packageJson(res, 'buckets', key_data);
 			})
 		});
+	},
+	delete: function(req, res) {
+		Q.ninvoke(client, "del", helpers.keyName(req.params.bucket)).done(function() {
+			helpers.packageJson(res, 'delete', null);
+		})
 	}
 };
 
