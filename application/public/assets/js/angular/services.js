@@ -71,6 +71,7 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 					success: function (success) {
 						angular.forEach(success.data.data, function (element) {
 							element.ts = Date.parse(element.time);
+							element.hits = parseFloat(element.hits);
 						});
 
 						return success.data;
@@ -84,6 +85,10 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 						angular.forEach(response.data.data.table_data, function (element) {
 							element.ts = Date.parse(element.time);
 						});
+
+						if (_.isArray(response.data.data.table_data)) {
+							response.data.data.table_data.reverse();
+						}
 
 						return response.data;
 					}
