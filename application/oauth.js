@@ -33,8 +33,8 @@ var oauthTools = {
 			'gid': id
 		}, config.client_secret, { expiresInMinutes: 60*24 });
 
-		res.cookie('jwt', jwt_token, { maxAge: 60*60*24*90 });
-		res.cookie('gid', id, { signed: true, maxAge: 60*60*24*90 });
+		res.cookie('jwt', jwt_token, { maxAge: 60*60*24*90*1000 });
+		res.cookie('gid', id, { signed: true, maxAge: 60*60*24*90*1000 });
 	},
 	/**
 	 * Validates the Google Plus domain

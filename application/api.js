@@ -28,7 +28,7 @@ var helpers = {
 	 * @param key String
 	 * @returns {*|XML|string|void}
 	 */
-	bucketName: function(key) {
+	bucketName: function (key) {
 		return key.replace("EventsD:", "");
 	},
 	/**
@@ -38,7 +38,7 @@ var helpers = {
 	 * @param bucket String
 	 * @returns {string}
 	 */
-	keyName: function(bucket) {
+	keyName: function (bucket) {
 		return "EventsD:" + bucket;
 	},
 	/**
@@ -48,10 +48,10 @@ var helpers = {
 	 * @param str String
 	 * @returns {string}
 	 */
-	getSize: function(str) {
+	getSize: function (str) {
 		var size = encodeURI(str).split(/%..|./).length - 1;
 		if (size > 1024) {
-			size = (size/1024).toFixed(2) + ' kb';
+			size = (size / 1024).toFixed(2) + ' kb';
 		} else {
 			size = size + " b"
 		}
@@ -67,9 +67,9 @@ var helpers = {
 	 * @param data string - JSON object
 	 * @param status string optional - Response status
 	 */
-	packageJson: function(res, info, data, status) {
+	packageJson: function (res, info, data, status) {
 		var d = new Date();
-		d.setMinutes(d.getMinutes()+1);
+		d.setMinutes(d.getMinutes() + 1);
 		res.header('Cache-Control', 'must-revalidate');
 		res.header('Expires', d.toUTCString());
 		res.header('Content-type', 'application/json');
@@ -96,44 +96,24 @@ var api = {
 	 */
 	events: function (req, res) {
 		var bucket = req.params.bucket,
-			table_data = [],
-			hour_data = [],
-			month_data = {};
+			table_data = [];
 
 		Q.npost(client, "zrange", [helpers.keyName(bucket), 0, 1000]).then(function (results) {
-			_.each(_.range(0, 24), function (hour) {
-				hour_data[hour] = {
-					count: 0,
-					display: (hour < 10) ? '0' + hour : hour.toString()
-				}
-			});
-
 			_.each(results, function (ev) {
 				var event = JSON.parse(ev),
-					date = new Date(event.datetime),
-					dateString = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
-
-				if (!_.has(month_data, dateString)) {
-					month_data[dateString] = 0;
-				}
-				month_data[dateString]++;
-				hour_data[date.getHours()].count++;
+					time = new Date(event.datetime);
 
 				table_data.push({
 					name: bucket,
 					size: helpers.getSize(ev),
-					time: date.getTime(),
+					time: time.toUTCString(),
 					data: event.data
 				});
 			});
-			table_data.reverse();
 		}).then(function () {
-			var pkg = {
-				'month_data': month_data,
-				'hour_data': hour_data,
-				'table_data': table_data
-			};
-			helpers.packageJson(res, 'events', pkg);
+			helpers.packageJson(res, 'events', {
+				table_data: table_data
+			});
 		});
 	},
 	/**
@@ -143,14 +123,16 @@ var api = {
 	 * @param req Object - Express request object
 	 * @param res Object - Express response object
 	 */
-	buckets: function(req, res) {
-		// promises, yeaaaahhhh
+	buckets: function (req, res) {
+		var promises = [];
+
 		Q.spread([
-			Q.ninvoke(client, "keys", "*"),
+			Q.ninvoke(client, "keys", "EventsD:*"),
 			Q.npost(client, "zrevrangebyscore", redisPresets.counters)
 		], function (keys, counters) {
 			var key_data = [],
-				csorted = {};
+				csorted = {},
+				deferred = Q.defer();
 
 			// php was easier
 			csorted = _.object(_.toArray(_.groupBy(counters, function (a, b) {
@@ -158,11 +140,13 @@ var api = {
 			})));
 
 			_.each(keys, function (element) {
+				var defer = Q.defer();
+
 				if (_.contains(redisPresets.ignores, element)) {
 					return;
 				}
 
-				Q.npost(client, "zrevrange", [element, 0, 1]).then(function (latest) {
+				var promise = Q.npost(client, "zrevrange", [element, 0, 1]).then(function (latest) {
 					var bucket_data = {},
 						time;
 
@@ -176,15 +160,30 @@ var api = {
 						'hits': (_.has(csorted, helpers.bucketName(element))) ?
 							csorted[helpers.bucketName(element)] : 0,
 						'time': (_.isObject(time)) ?
-							time.getTime() : 0
+							time.toUTCString() : 0
 					};
 
 					key_data.push(obj);
 				}).then(function () {
-					helpers.packageJson(res, 'buckets', key_data);
+					defer.resolve();
 				});
+
+				promises.push(promise);
 			});
+
+			Q.all(promises).then(function () {
+				deferred.resolve();
+			});
+
+			deferred.promise.done(function () {
+				helpers.packageJson(res, 'buckets', key_data);
+			})
 		});
+	},
+	delete: function(req, res) {
+		Q.ninvoke(client, "del", helpers.keyName(req.params.bucket)).done(function() {
+			helpers.packageJson(res, 'delete', null);
+		})
 	}
 };
 

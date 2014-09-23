@@ -29,6 +29,10 @@ app.get('/api/buckets', function(req, res) {
 	eventsdApi.buckets(req, res)
 });
 
+app.get('/api/delete/:bucket', function(req, res) {
+	eventsdApi.delete(req, res);
+});
+
 app.use('/oauth2', function(req, res) {
 	oauth.oauth2(req, res);
 });
