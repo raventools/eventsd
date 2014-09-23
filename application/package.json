@@ -4,15 +4,16 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"cookie-parser": "*",
 		"express": "4.x",
-		"redis": "*",
-		"hiredis": "*",
-		"sqlite3": "*",
-		"q": "*",
-		"underscore": "*",
-		"googleapis": "*",
 		"express-jwt": "*",
+		"googleapis": "*",
+		"hiredis": "*",
 		"jsonwebtoken": "*",
-		"cookie-parser": "*"
+		"node-statsd": "0.0.7",
+		"q": "*",
+		"redis": "*",
+		"sqlite3": "*",
+		"underscore": "*"
 	}
 }
