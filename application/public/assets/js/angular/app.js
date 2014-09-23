@@ -20,6 +20,10 @@ app.config(['$routeProvider',
 				templateUrl: '/browser/views/events.html',
 				controller: 'eventsCtrl'
 			}).
+			when('/reports/', {
+				templateUrl: '/browser/views/reports.html',
+				controller: 'reportsCtrl'
+			}).
 			when('/auth', {
 				templateUrl: '/browser/views/partials/auth.html',
 				controller: 'loginCtrl'

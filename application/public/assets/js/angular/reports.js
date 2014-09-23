@@ -1,0 +1,155 @@
+var reports_exception_buckets = [
+	{
+		"name":"app.dashboard_reports.process.error"
+	}
+];
+
+var reports_graphs = [
+	{
+		"name":"StatsD Metrics",
+		"images":[
+			{
+				"name":"gearman_endpoints",
+				"img":"http://statsd.raventools.com/render?width=697&lineWidth=2&from=-210minutes&until=now&height=184&target=stats_counts.app.dashboard_reports.gearman.scheduled_init&target=stats_counts.app.dashboard_reports.gearman.scheduled&target=stats_counts.app.dashboard_reports.gearman.quick_init&target=stats_counts.app.dashboard_reports.gearman.quick&title=Gearman%20Endpoints&colorList=blue%2Cyellow%2Corange%2Cwhite&_uniq=0.8207568986163961"
+			},
+			{
+				"name":"report_processing",
+				"img":"http://statsd.raventools.com/render?width=697&lineWidth=2&from=-210minutes&until=now&height=184&target=stats_counts.app.dashboard_reports.process.success&target=stats_counts.app.dashboard_reports.process.error&title=Report%20Processing&_uniq=0.4486877495577781"
+			},
+			{
+				"name":"s3_operations",
+				"img":"http://statsd.raventools.com/render?width=697&lineWidth=2&from=-210minutes&until=now&height=184&target=stats_counts.app.dashboard_reports.s3.put&target=stats_counts.app.dashboard_reports.s3.failure&title=s3%20Operations&_uniq=0.6180478960481984"
+			},
+			{
+				"name":"redis_operations",
+				"img":"http://statsd.raventools.com/render?width=697&lineWidth=2&from=-210minutes&until=now&height=184&target=stats_counts.app.dashboard_reports.redis.update&target=stats_counts.app.dashboard_reports.redis.get&target=stats_counts.app.dashboard_reports.redis.insert&title=Redis%20Operations&colorList=blue%2Cyellow%2Corange&_uniq=0.8703162591016725"
+			}
+		]
+	},
+	{
+		"name":"Gearman Master",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/1022564004",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-196/hosts/04-012L2UFHD35MH/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=pce5n6TIVjPqx9XTidzq0lg&tz=America%2FChicago&clip=&title=Gearman%2BMaster%2B%5Breports%5D&deployment_title="
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-196/hosts/04-012L2UFHD35MH/plugins/memory/views/memory-free.png?period=now&size=small&tok=pce5n6TIVjPqx9XTidzq0lg&tz=America%2FChicago&clip=&title=Gearman%2BMaster%2B%5Breports%5D&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Gearman Grid Worker #18",
+		"url":"https://us-4.rightscale.com/acct/6950/clouds/1/instances/202475630004",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-44/hosts/04-CTB0M9DC2ABL5/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=pK_6WRETLVPm1WBaBED-YHA&tz=America%2FChicago&clip=&title=Gearman%2BWorker%2B-%2B%5Breports%5D%2B%2318&deployment_title="
+			},
+			{ 
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-44/hosts/04-CTB0M9DC2ABL5/plugins/memory/views/memory-free.png?period=now&size=small&tok=pK_6WRETLVPm1WBaBED-YHA&tz=America%2FChicago&clip=&title=Gearman%2BWorker%2B-%2B%5Breports%5D%2B%2318&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Reports API 1",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/1021212004",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-14/hosts/04-EG3JRP7KCHB4D/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=pnjim6hFAm0zsrgQP7p49Ew&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapi1.marketing-reports.com%2Bus-east-1c&deployment_title=&t=1411395917314"
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-14/hosts/04-EG3JRP7KCHB4D/plugins/memory/views/memory-free.png?period=now&size=small&tok=pnjim6hFAm0zsrgQP7p49Ew&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapi1.marketing-reports.com%2Bus-east-1c&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Reports API 2",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/1021213004",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-42/hosts/04-95834K39NS59P/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=pn3EqL-D4hJKhvVj4Ptwmlg&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapi2.marketing-reports.com%2Bus-east-1d&deployment_title="
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-42/hosts/04-95834K39NS59P/plugins/memory/views/memory-free.png?period=now&size=small&tok=pn3EqL-D4hJKhvVj4Ptwmlg&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapi2.marketing-reports.com%2Bus-east-1d&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Reports API 3",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/1021216004",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-150/hosts/04-5O7SN1P3PFN31/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=p0KdWpXEtNBEnusOVIXd6-Q&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapi3.marketing-reports.com%2Bus-east-1e&deployment_title="
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-150/hosts/04-5O7SN1P3PFN31/plugins/memory/views/memory-free.png?period=now&size=small&tok=p0KdWpXEtNBEnusOVIXd6-Q&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapi3.marketing-reports.com%2Bus-east-1e&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Frontend App 1",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/990664001",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-120/hosts/04-1AB38CO0G9EG2/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=pv18vYGjhvuzdmU9ZOLMzvQ&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp1.raventools.com%2B(new%2Bchef)%2B%2Bus-east-1c&deployment_title="
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-120/hosts/04-1AB38CO0G9EG2/plugins/memory/views/memory-free.png?period=now&size=small&tok=pv18vYGjhvuzdmU9ZOLMzvQ&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp1.raventools.com%2B(new%2Bchef)%2B%2Bus-east-1c&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Frontend App 2",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/990665001",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-180/hosts/01-090BDGTTQJCK5/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=pMp5wbNINGnVVMziK0qmmjg&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp2.raventools.com%2B(new%2Bchef)%2Bus-east-1d&deployment_title="
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-180/hosts/01-090BDGTTQJCK5/plugins/memory/views/memory-free.png?period=now&size=small&tok=pMp5wbNINGnVVMziK0qmmjg&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp2.raventools.com%2B(new%2Bchef)%2Bus-east-1d&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Frontend App 3",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/990666001",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-158/hosts/01-7I59TJ7R2OLS2/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=p2h4hxZaL96RiZLWa6GF8hA&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp3.raventools.com%2B(new%2Bchef)%2Bus-east-1e&deployment_title="
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-158/hosts/01-7I59TJ7R2OLS2/plugins/memory/views/memory-free.png?period=now&size=small&tok=p2h4hxZaL96RiZLWa6GF8hA&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp3.raventools.com%2B(new%2Bchef)%2Bus-east-1e&deployment_title="
+			}
+		]
+	},
+	{
+		"name":"Frontend App 4",
+		"url":"https://us-4.rightscale.com/acct/6950/servers/1037978004",
+		"images":[
+			{
+				"name":"idle_cpu",
+				"img":"https://us-4.rightscale.com/sketchy1-186/hosts/04-358CSQ97GMUO4/plugins/cpu-0/views/cpu-idle.png?period=now&size=small&tok=pyieRJdMw6IP2fg2k7otD9g&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp4.raventools.com%2B(new%2Bchef)%2Bus-east-1e&deployment_title="
+			},
+			{
+				"name":"free_memory",
+				"img":"https://us-4.rightscale.com/sketchy1-186/hosts/04-358CSQ97GMUO4/plugins/memory/views/memory-free.png?period=now&size=small&tok=pyieRJdMw6IP2fg2k7otD9g&tz=America%2FChicago&clip=&title=Prod%2B-%2Bapp4.raventools.com%2B(new%2Bchef)%2Bus-east-1e&deployment_title="
+			}
+		]
+	}
+];

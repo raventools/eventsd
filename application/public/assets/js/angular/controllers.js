@@ -27,6 +27,22 @@ appControllers.directive('buckets', function() {
 	};
 });
 
+appControllers.directive('servers', function() {
+	return {
+		restrict: 'E',
+		replace: true,
+		templateUrl: '/browser/views/partials/servers.html'
+	}
+});
+
+appControllers.directive('exceptions', function() {
+	return {
+		restrict: 'E',
+		replace: true,
+		templateUrl: '/browser/views/partials/exceptions.html'
+	}
+});
+
 appControllers.controller('modalInstanceCtrl', ['$scope', '$modalInstance', 'data',
 	function ($scope, $modalInstance, data) {
 		$scope.modal = data;
@@ -267,5 +283,28 @@ appControllers.controller('eventsCtrl', ['$scope', '$http', '$routeParams', '$ti
 		$scope.clipClick = function () {
 			$scope.clip_text = 'Copied to Clipboard';
 		};
+	}
+]);
+
+appControllers.controller('reportsCtrl', ['$scope', '$http', '$routeParams', '$timeout', 'eventService',
+	function ($scope, $http, $routeParams, $timeout, eventService) {
+
+		$scope.refreshGraphs = function() {
+			$scope.servers = reports_graphs;
+		}
+
+		$scope.refreshExceptions = function() {
+			console.log(reports_exception_buckets);
+			_.each(reports_exception_buckets, function(bucket) {
+				// TODO merge, sort, and limit exceptions from multiple buckets
+				eventService.getEventsEndpoint(bucket.name).
+					then(function (data) {
+						$scope.exceptions_table = data.data.table_data;
+					});
+			});
+		}
+
+		$scope.refreshExceptions();
+		$scope.refreshGraphs();
 	}
 ]);

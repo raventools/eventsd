@@ -4,14 +4,15 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
+		"cookie-parser": "*",
 		"express": "4.x",
+		"express-jwt": "*",
+		"googleapis": "*",
+		"jsonwebtoken": "*",
+		"node-statsd": "0.0.7",
+		"q": "*",
 		"redis": "*",
 		"sqlite3": "*",
-		"q": "*",
-		"underscore": "*",
-		"googleapis": "*",
-		"express-jwt": "*",
-		"jsonwebtoken": "*",
-		"cookie-parser": "*"
+		"underscore": "*"
 	}
 }

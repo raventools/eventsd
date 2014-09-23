@@ -1,0 +1,8 @@
+<div class="panel panel-default server-images-panel" ng-repeat="server in servers">
+	<div class="panel-heading">
+		<h3 class="panel-title"><a href="{{server.url}}" target="_blank">{{server.name}}</a></h3>
+	</div>
+	<div class="panel-body">
+		<img ng-repeat="image in server.images" src="{{image.img}}" title="{{image.name}}" />
+	</div>
+</div>
