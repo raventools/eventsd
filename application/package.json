@@ -8,7 +8,6 @@
 		"express": "4.x",
 		"express-jwt": "*",
 		"googleapis": "*",
-		"hiredis": "*",
 		"jsonwebtoken": "*",
 		"node-statsd": "0.0.7",
 		"q": "*",
