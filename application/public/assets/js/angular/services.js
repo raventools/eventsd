@@ -161,6 +161,19 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 					}
 				};
 
+				function getElement(element) {
+					var deferred = $q.defer(),
+						chkDom = setInterval(function() {
+							var elem = document.getElementById(element);
+							if (!_.isEmpty(elem)) {
+								deferred.resolve(elem);
+								clearTimeout(chkDom);
+							}
+						}, 5);
+
+					return deferred.promise;
+				}
+
 				// parse container data
 				function parseContainerData() {
 					var deferred = $q.defer(),
@@ -214,8 +227,10 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 					};
 					angular.extend(options, global_table_opts);
 
-					var chart = new google.visualization.LineChart(document.getElementById('hour-chart'));
-					chart.draw(dataTable, options);
+					getElement('hour-chart').then(function(element) {
+						var chart = new google.visualization.LineChart(element);
+						chart.draw(dataTable, options);
+					});
 				}
 
 				function drawMonthlyChart(data) {
@@ -234,8 +249,10 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 					};
 					angular.extend(options, global_table_opts);
 
-					var chart = new google.visualization.LineChart(document.getElementById('month-chart'));
-					chart.draw(dataTable, options);
+					getElement('month-chart').then(function(element) {
+						var chart = new google.visualization.LineChart(element);
+						chart.draw(dataTable, options);
+					});
 				}
 
 				parseContainerData().then(function (data) {
