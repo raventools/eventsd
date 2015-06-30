@@ -165,9 +165,9 @@ appServices.service('eventService', ['$http', '$q', '$cookies', 'authService',
 					var deferred = $q.defer(),
 						chkDom = setInterval(function() {
 							var elem = document.getElementById(element);
-							if (!_.isEmpty(elem)) {
+							if (elem.length > 0) {
 								deferred.resolve(elem);
-								clearTimeout(chkDom);
+								clearInterval(chkDom);
 							}
 						}, 5);
 
