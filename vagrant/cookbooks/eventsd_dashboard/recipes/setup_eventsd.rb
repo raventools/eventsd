@@ -15,10 +15,10 @@ template "/etc/supervisor.d/eventsd.conf" do
     notifies :restart, "service[supervisord]", :delayed
 end
 
-template "/etc/supervisor.d/pubsub.conf" do
+template "/etc/supervisor.d/eventsd_pubsub.conf" do
     source "supervisor_program.conf.erb"
     variables ({
-            :name => "pubsub",
+            :name => "eventsd_pubsub",
             :command => "node pubsub.js",
             :directory => eventsd_dir,
             :numprocs => 1,
