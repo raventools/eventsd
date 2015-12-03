@@ -7,8 +7,10 @@ end
 
 include_recipe "yum-epel"
 
-package "nodejs"
-package "npm"
+if node[:eventsd_dashboard][:install_nodejs] == true 
+	package "nodejs"
+	package "npm"
+end
 
 # configures epel and epel-rightscale repos
 include_recipe "eventsd_dashboard::setup_epel"
