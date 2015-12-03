@@ -32,3 +32,6 @@ default[:eventsd_dashboard][:application][:client_id] = ""
 default[:eventsd_dashboard][:application][:client_secret] = ""
 default[:eventsd_dashboard][:application][:client_redirect] = ""
 default[:eventsd_dashboard][:application][:db_file] = "database.sqlite"
+
+# install nodejs and npm? disable this if node is provided by another cookbook
+default[:eventsd_dashboard][:install_nodejs] = true
